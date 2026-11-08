@@ -52,7 +52,7 @@
     <div class="music-studio">
       <aside class="listening-panel" aria-label="当前演奏">
         <div class="listening-paper">
-          <div class="listening-topline"><span>THE LISTENING ROOM</span><span>01 — 09</span></div>
+          <div class="listening-topline"><span>THE LISTENING ROOM</span><button id="music-panel-collapse" class="music-panel-collapse" type="button" aria-label="收起播放器但继续播放音乐" title="收起播放器，音乐继续播放">收起播放器 <span aria-hidden="true">⌄</span></button></div>
           <figure class="listening-cover">
             <img id="feature-art" src="assets/monet-snow.jpg" alt="正在播放作品的画作">
             <figcaption><span id="feature-number">NO. 01</span><span>AN ARTWORK FOR EVERY SOUND</span></figcaption>
@@ -62,7 +62,7 @@
         </div>
       </aside>
       <div class="record-library">
-        <div class="record-library-head"><span>THE REPERTOIRE</span><span>09 RECORDINGS</span></div>
+        <div class="record-library-head"><span>THE REPERTOIRE</span><div class="record-library-actions"><button type="button" id="music-panel-restore" class="music-panel-restore" aria-label="展开音乐播放器" hidden>♫ 展开播放器</button><span>09 RECORDINGS</span></div></div>
         <div id="music-grid" class="music-grid" role="list" aria-label="可播放曲目"></div>
         <p class="record-library-end">END OF COLLECTION — 09</p>
       </div>
