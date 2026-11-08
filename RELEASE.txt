@@ -1,0 +1,5 @@
+Bee website full portable source
+Version: 3.0.0
+Source commit: 46df75dabd3da6059974d8cf8344ec1930287a64
+No credentials or browser personal records included.
+Contact: nothingjudgeus@gmail.com
