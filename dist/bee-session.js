@@ -34,9 +34,9 @@ function update(url,push){
   if(currentFile===route.file){
    if(current.hash!==new URL(route.href,location.href).hash)current.hash=new URL(route.href,location.href).hash;
   }else{
-   frame.src=route.href;
+   frame.src=route.file+'?v=20261108-type2'+route.href.slice(route.file.length);
   }
- }catch{frame.src=route.href}
+ }catch{frame.src=route.file+'?v=20261108-type2'+route.href.slice(route.file.length)}
  window.BEE_AUDIO?.getState&&document.dispatchEvent(new Event('bee:route'));
  const engine=window.BEE_AUDIO;if(engine?.refreshMini)engine.refreshMini();
  return true;
