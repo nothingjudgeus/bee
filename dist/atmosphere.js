@@ -3,6 +3,47 @@ const paint={monet:{src:'assets/monet-snow.jpg',title:'莫奈 · 阳光下的雪
 const safeGet=k=>{try{return localStorage.getItem(k)}catch{return null}},safeSet=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
 const chosenPainting=(()=>{try{const v=JSON.parse(safeGet('bee_art_choice')||'null');return v&&typeof v.src==='string'&&typeof v.title==='string'&&typeof v.source==='string'?v:null}catch{return null}})();
 if(chosenPainting)paint.user={src:chosenPainting.src,title:chosenPainting.title,source:chosenPainting.source};
+const artCatalog=(window.BEE_ATELIER?.artworks||[]).filter(a=>a&&a.src&&a.source&&a.title).map(a=>({
+  key:'collection-'+a.id,src:a.src,title:a.artist+' · '+a.title+(a.year?'，'+a.year:''),source:a.source
+}));
+for(const p of artCatalog)paint[p.key]={src:p.src,title:p.title,source:p.source};
+const allRandomKeys=artCatalog.length?artCatalog.map(p=>p.key):['monet','vangogh'];
+let artBag=[],activeArtKey='',artChanging=false,artHovering=false;
+const randomMode=()=>safeGet('bee_art_mode')==='random'||(safeGet('bee_art_mode')!=='fixed'&&!chosenPainting);
+const autoEnabled=()=>safeGet('bee_art_auto')!=='off';
+function nextRandomKey(){
+ if(!artBag.length){
+  artBag=allRandomKeys.filter(k=>k!==activeArtKey);
+  for(let i=artBag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[artBag[i],artBag[j]]=[artBag[j],artBag[i]];}
+  if(!artBag.length)artBag=allRandomKeys.slice();
+ }
+ return artBag.pop();
+}
+function setRandomControlState(stage){
+ const button=stage?.querySelector('[data-art-auto]');if(!button)return;
+ const on=autoEnabled()&&randomMode();
+ button.textContent=on?'自动轮换 · 开':'自动轮换 · 关';
+ button.setAttribute('aria-pressed',String(on));
+}
+function changeFeaturedArt(stage,key,tries=0){
+ if(!stage||!stage.isConnected||artChanging||!paint[key])return;
+ const p=paint[key],img=stage.querySelector('.art-image'),credit=stage.querySelector('.art-credit');
+ if(!img)return;
+ artChanging=true;
+ const preload=new Image();
+ const settle=()=>{
+   if(!stage.isConnected)return;
+   img.classList.remove('paint-change');
+   img.src=p.src;img.alt=p.title;stage.dataset.art=key;activeArtKey=key;
+   if(credit)credit.textContent=p.title;
+   requestAnimationFrame(()=>img.classList.add('paint-change'));
+   setRandomControlState(stage);
+ };
+ preload.onload=()=>{artChanging=false;settle()};
+ preload.onerror=()=>{artChanging=false;if(tries<3){const another=nextRandomKey();if(another&&another!==key)return changeFeaturedArt(stage,another,tries+1)}if(img.src.indexOf('assets/')<0){img.src=paint.monet.src;stage.dataset.art='monet';activeArtKey='monet';if(credit)credit.textContent=paint.monet.title}};
+ preload.src=p.src;
+}
+
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');let calm=safeGet('bee_motion')==='calm'||reduced.matches;
 document.body.classList.toggle('calm-motion',calm);
 const progress=document.createElement('div');progress.className='reading-progress';document.body.append(progress);
@@ -40,17 +81,41 @@ if(pref===null&&!engine?.getState()?.hasStarted){
  dialog.addEventListener('cancel',()=>safeSet('bee_sound','off'));
 }
 const viewer=document.createElement('dialog');viewer.id='art-viewer';viewer.innerHTML='<img alt=""><div class="art-viewer-footer"><span></span><a target="_blank" rel="noopener">馆藏与图像来源 ↗</a><button>关闭</button></div>';document.body.append(viewer);viewer.querySelector('button').onclick=()=>viewer.close();viewer.addEventListener('click',e=>{if(e.target===viewer)viewer.close()});
-document.addEventListener('click',e=>{let switcher=e.target.closest('[data-paint]');if(switcher){let stage=switcher.closest('.art-stage'),p=paint[switcher.dataset.paint],img=stage.querySelector('img');stage.dataset.art=switcher.dataset.paint;img.classList.remove('paint-change');img.src=p.src;img.alt=p.title;requestAnimationFrame(()=>img.classList.add('paint-change'));stage.querySelector('.art-credit').textContent=p.title;stage.querySelectorAll('[data-paint]').forEach(b=>b.setAttribute('aria-pressed',String(b===switcher)))}let enlarge=e.target.closest('.art-enlarge');if(enlarge){let key=enlarge.dataset.painting||enlarge.closest('.art-stage')?.dataset.art||'monet',p=paint[key];viewer.querySelector('img').src=p.src;viewer.querySelector('img').alt=p.title;viewer.querySelector('span').textContent=p.title+' · '+(key==='user'?'书房精选画作':key==='monet'?'巴贝里尼博物馆 · Public Domain':'The Met · Public Domain');viewer.querySelector('a').href=p.source;viewer.showModal()}});
+document.addEventListener('click',e=>{
+ const random=e.target.closest('[data-art-random]');
+ if(random){
+   const stage=random.closest('.art-stage');
+   safeSet('bee_art_mode','random');
+   const k=nextRandomKey();if(k)changeFeaturedArt(stage,k);
+ }
+ const auto=e.target.closest('[data-art-auto]');
+ if(auto){
+   const stage=auto.closest('.art-stage');
+   safeSet('bee_art_mode','random');
+   safeSet('bee_art_auto',autoEnabled()?'off':'on');
+   setRandomControlState(stage);
+   if(autoEnabled()&&!activeArtKey){const k=nextRandomKey();if(k)changeFeaturedArt(stage,k)}
+ }
+ let enlarge=e.target.closest('.art-enlarge');if(enlarge){let key=enlarge.dataset.painting||enlarge.closest('.art-stage')?.dataset.art||'monet',p=paint[key];viewer.querySelector('img').src=p.src;viewer.querySelector('img').alt=p.title;viewer.querySelector('span').textContent=p.title+' · '+(key==='user'?'书房精选画作':key==='monet'?'巴贝里尼博物馆 · Public Domain':'The Met · Public Domain');viewer.querySelector('a').href=p.source;viewer.showModal()}});
 let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){if(!calm)e.target.classList.add('motion-enter');io.unobserve(e.target)}}),{threshold:.08});
 function bind(){document.querySelectorAll('.section-head,.journal-row,.study-band>div,.study-band li,.art-pause>div,.about-strip>*,.chapter>a,.reading h2').forEach((el,i)=>{if(el.dataset.motionBound)return;el.dataset.motionBound='1';el.style.setProperty('--delay',(i%4)*60+'ms');io.observe(el)});let stage=document.querySelector('.art-stage');
-if(stage&&paint.user&&!stage.dataset.galleryApplied){
-  stage.dataset.galleryApplied='1';stage.dataset.art='user';
-  const frame=stage.querySelector('.art-image');
-  if(frame){frame.src=paint.user.src;frame.alt=paint.user.title;frame.onerror=()=>{frame.onerror=null;frame.src=paint.monet.src;stage.dataset.art='monet';stage.querySelector('.art-credit').textContent=paint.monet.title};}
-  const credit=stage.querySelector('.art-credit');if(credit)credit.textContent=paint.user.title;
-  stage.querySelectorAll('[data-paint]').forEach(b=>b.setAttribute('aria-pressed','false'));
+if(stage&&!stage.dataset.galleryRandomBound){
+  stage.dataset.galleryRandomBound='1';
+  activeArtKey='';
+  if(paint.user&&!randomMode())changeFeaturedArt(stage,'user');
+  else {const k=nextRandomKey();if(k)changeFeaturedArt(stage,k)}
+  setRandomControlState(stage);
+  stage.addEventListener('pointerenter',()=>{artHovering=true});
+  stage.addEventListener('pointerleave',()=>{artHovering=false});
 }
 if(stage&&!stage.dataset.tiltBound){stage.dataset.tiltBound='1';stage.addEventListener('pointermove',e=>{if(calm||e.pointerType!=='mouse')return;let r=stage.getBoundingClientRect();stage.style.setProperty('--ry',((e.clientX-r.left)/r.width-.5)*3+'deg');stage.style.setProperty('--rx',-((e.clientY-r.top)/r.height-.5)*3+'deg')});stage.addEventListener('pointerleave',()=>{stage.style.setProperty('--rx','0deg');stage.style.setProperty('--ry','0deg')})}}
+// Shuffle without immediately repeating a painting; only swap after its image loads.
+setInterval(()=>{
+ const stage=document.querySelector('.art-stage');
+ if(!stage||!stage.isConnected||document.hidden||artHovering||viewer.open||artChanging)return;
+ if(!randomMode()||!autoEnabled())return;
+ const k=nextRandomKey();if(k)changeFeaturedArt(stage,k);
+},24000);
 const main=document.querySelector('#main')||document.querySelector('#app');if(main)new MutationObserver(bind).observe(main,{childList:true,subtree:true});bind();
 let ticking=false;window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{let total=document.documentElement.scrollHeight-innerHeight;progress.style.transform='scaleX('+(total>0?Math.min(1,scrollY/total):0)+')';ticking=false})},{passive:true});
 })();
