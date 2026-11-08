@@ -102,7 +102,7 @@ function renderMini(state){
  const onMusic=window.BEE_SHELL?.currentArea==='atelier'&&window.BEE_SHELL?.currentSection==='music';
  const showing=state.hasStarted&&!onMusic;
  const expanded=showing&&!miniCollapsed;
- const compact=miniCollapsed&&(state.hasStarted||onMusic);
+ const compact=miniCollapsed;
  mini.hidden=!expanded;
  if(restore){
   restore.hidden=!compact;
