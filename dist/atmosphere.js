@@ -7,20 +7,47 @@ const selectedMusic=window.BEE_ATELIER?.tracks?.find(t=>t.id===safeGet('bee_musi
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');let calm=safeGet('bee_motion')==='calm'||reduced.matches;
 document.body.classList.toggle('calm-motion',calm);
 let progress=document.createElement('div');progress.className='reading-progress';document.body.append(progress);
-let controls=document.createElement('div');controls.className='sound-controls';controls.innerHTML='<button id="sound-toggle" aria-pressed="false"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i></span><span id="sound-label">配乐关闭</span></button><label for="sound-volume">音量</label><input type="range" id="sound-volume" aria-label="配乐音量" min="0" max="50" value="18"><button id="motion-toggle" aria-pressed="'+!calm+'">'+(calm?'动态关闭':'动态开启')+'</button>';document.body.append(controls);
-const toggle=document.getElementById('sound-toggle'),label=document.getElementById('sound-label'),volume=document.getElementById('sound-volume');let ctx,master,timer,enabled=false,next=0,step=0;
-let v=Number(safeGet('bee_volume')??18);v=Number.isFinite(v)?Math.max(0,Math.min(50,v)):18;volume.value=v;
-// Original ambient score: Dmaj9 → Bm7 → Gmaj9 → Asus2, sparse bell harmonics.
-const chords=selectedMusic?.chords||[[50,57,61,66,69],[47,54,57,62,66],[43,50,54,57,62],[45,52,57,59,64]],melody=selectedMusic?.melody||[74,78,81,78,73,69,66,69,74,78,81,86,83,81,78,73];
-function voice(midi,time,duration,gain,pad=false){let f=440*2**((midi-69)/12);[1,2,3].slice(0,pad?2:3).forEach((h,i)=>{let o=ctx.createOscillator(),g=ctx.createGain();o.type=(!pad&&(selectedMusic?.timbre==='felt'||selectedMusic?.timbre==='plucked'))?'triangle':'sine';o.frequency.value=f*h;o.detune.value=i?1.5:0;g.gain.setValueAtTime(0,time);g.gain.linearRampToValueAtTime(gain/(1+i*3),time+(pad?1.8:.035));g.gain.exponentialRampToValueAtTime(.00001,time+duration);o.connect(g);g.connect(master);o.start(time);o.stop(time+duration+.1);o.onended=()=>{o.disconnect();g.disconnect()}})}
-function schedule(){if(!enabled||ctx.state!=='running')return;while(next<ctx.currentTime+.35){let chord=chords[Math.floor(step/4)%4];if(step%4===0)chord.forEach(n=>voice(n,next,11,.095,true));voice(melody[step%melody.length],next,5,.12);if(step%2===0)voice(chord[2]+12,next+.7,4,.055);next+=(selectedMusic?.step||2.8);step++}}
-function ui(){let playing=enabled&&ctx?.state==='running';controls.classList.toggle('is-playing',playing);toggle.setAttribute('aria-pressed',String(playing));label.textContent=playing?(selectedMusic?.title||'雪后')+' · 播放中':enabled?'点击继续配乐':'配乐关闭'}
-async function start(){try{if(!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination)}await ctx.resume();enabled=true;safeSet('bee_sound','on');master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(Number(volume.value)/100,ctx.currentTime,.8);if(!timer){next=ctx.currentTime+.1;timer=setInterval(schedule,200);schedule()}ui()}catch{enabled=false;label.textContent='配乐暂不可用';toggle.setAttribute('aria-pressed','false')}}
-function stop(){enabled=false;safeSet('bee_sound','off');if(timer){clearInterval(timer);timer=null}if(ctx){master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(0,ctx.currentTime,.15);let old=ctx;ctx=null;setTimeout(()=>old.close(),900)}ui()}
-toggle.onclick=()=>enabled&&ctx?.state==='running'?stop():start();volume.oninput=()=>{safeSet('bee_volume',volume.value);if(master&&ctx)master.gain.setTargetAtTime(Number(volume.value)/100,ctx.currentTime,.25)};
+let controls=document.createElement('div');controls.className='sound-controls';controls.innerHTML='<button id="sound-toggle" aria-pressed="false"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i></span><span id="sound-label">配乐关闭</span></button><a class="sound-library" href="atelier.html#music" title="切换长篇纯音乐">选曲 ↗</a><label for="sound-volume">音量</label><input type="range" id="sound-volume" aria-label="配乐音量" min="0" max="50" value="28"><button id="motion-toggle" aria-pressed="'+!calm+'">'+(calm?'动态关闭':'动态开启')+'</button>';document.body.append(controls);
+const toggle=document.getElementById('sound-toggle'),label=document.getElementById('sound-label'),volume=document.getElementById('sound-volume');
+const recording=selectedMusic||window.BEE_ATELIER?.tracks?.[0]||null;
+const audio=new Audio();audio.preload='none';
+let partIndex=0,enabled=false;
+const list=()=>recording?.parts?.length?recording.parts:recording?.src?[{src:recording.src}]:[];
+const currentPart=()=>list()[partIndex];
+let vol=Number(safeGet('bee_volume')??28);vol=Number.isFinite(vol)?Math.max(0,Math.min(50,vol)):28;
+volume.value=vol;audio.volume=vol/100;
+function ui(){
+  const playing=enabled&&!audio.paused&&!audio.ended;
+  controls.classList.toggle('is-playing',playing);
+  toggle.setAttribute('aria-pressed',String(playing));
+  label.textContent=playing?(recording?.title||'长篇纯音乐')+' · 播放中':enabled?'点击继续配乐':'配乐关闭';
+}
+async function start(){
+  if(!recording||!currentPart()){label.textContent='暂无可播放的音乐';return}
+  if(!audio.src){audio.src=currentPart().src;audio.load()}
+  try{await audio.play();enabled=true;safeSet('bee_sound','on');ui()}
+  catch{enabled=false;safeSet('bee_sound','off');label.textContent='音源暂不可用 · 到音乐集换一首';ui()}
+}
+function stop(){enabled=false;audio.pause();safeSet('bee_sound','off');ui()}
+toggle.onclick=()=>enabled&&!audio.paused?stop():start();
+volume.oninput=()=>{safeSet('bee_volume',volume.value);audio.volume=Number(volume.value)/100};
+audio.onended=()=>{if(!enabled)return;partIndex=(partIndex+1)%list().length;audio.src=currentPart().src;audio.load();start()};
+audio.onerror=()=>{enabled=false;safeSet('bee_sound','off');label.textContent='音源加载失败 · 查看音乐集';};
+audio.onpause=ui;
+audio.onplay=ui;
 document.getElementById('motion-toggle').onclick=e=>{calm=!calm;safeSet('bee_motion',calm?'calm':'on');document.body.classList.toggle('calm-motion',calm);e.currentTarget.textContent=calm?'动态关闭':'动态开启';e.currentTarget.setAttribute('aria-pressed',String(!calm))};
-const pref=safeGet('bee_sound');if(pref===null){let dialog=document.createElement('dialog');dialog.id='music-welcome';dialog.innerHTML='<h2>让书房有一点声音。</h2><p>轻柔的钟琴与绵长和弦，陪你读一页书。也可以把安静留给自己。</p><div class="welcome-actions"><button id="welcome-play">开启轻音乐</button><button id="welcome-silent">安静进入</button></div><p class="sound-note">原创氛围配乐《雪后》，无歌词。随时在右下角调节或关闭。</p>';document.body.append(dialog);dialog.showModal();document.getElementById('welcome-play').onclick=()=>{start();dialog.close()};document.getElementById('welcome-silent').onclick=()=>{safeSet('bee_sound','off');dialog.close()};dialog.addEventListener('cancel',()=>safeSet('bee_sound','off'))}else if(pref==='on'){enabled=true;ui();document.addEventListener('pointerdown',e=>{if(e.target.closest('#sound-toggle'))return;start()},{once:true})}
-document.addEventListener('visibilitychange',()=>{if(!ctx)return;if(document.hidden)ctx.suspend().then(ui);else if(enabled)ctx.resume().then(()=>{next=Math.max(next,ctx.currentTime+.1);ui()}).catch(ui)});
+const pref=safeGet('bee_sound');
+if(pref===null){
+  const dialog=document.createElement('dialog');dialog.id='music-welcome';
+  dialog.innerHTML='<h2>让书房有一点声音。</h2><p>选择完整的钢琴组曲、幻想曲或协奏曲，为阅读留一段真实的演奏。</p><div class="welcome-actions"><button id="welcome-play">播放当前纯音乐</button><button id="welcome-silent">安静进入</button></div><p class="sound-note">可随时暂停或前往「画与声」切换曲目。音频由开放授权的原始来源联网播放。</p>';
+  document.body.append(dialog);dialog.showModal();
+  document.getElementById('welcome-play').onclick=()=>{dialog.close();start()};
+  document.getElementById('welcome-silent').onclick=()=>{safeSet('bee_sound','off');dialog.close()};
+  dialog.addEventListener('cancel',()=>safeSet('bee_sound','off'));
+}else if(pref==='on'){
+  document.addEventListener('pointerdown',e=>{if(e.target.closest('#sound-toggle'))return;start()},{once:true});
+}
+window.addEventListener('pagehide',()=>{audio.pause();audio.removeAttribute('src');audio.load()});
 const viewer=document.createElement('dialog');viewer.id='art-viewer';viewer.innerHTML='<img alt=""><div class="art-viewer-footer"><span></span><a target="_blank" rel="noopener">馆藏与图像来源 ↗</a><button>关闭</button></div>';document.body.append(viewer);viewer.querySelector('button').onclick=()=>viewer.close();viewer.addEventListener('click',e=>{if(e.target===viewer)viewer.close()});
 document.addEventListener('click',e=>{let switcher=e.target.closest('[data-paint]');if(switcher){let stage=switcher.closest('.art-stage'),p=paint[switcher.dataset.paint],img=stage.querySelector('img');stage.dataset.art=switcher.dataset.paint;img.classList.remove('paint-change');img.src=p.src;img.alt=p.title;requestAnimationFrame(()=>img.classList.add('paint-change'));stage.querySelector('.art-credit').textContent=p.title;stage.querySelectorAll('[data-paint]').forEach(b=>b.setAttribute('aria-pressed',String(b===switcher)))}let enlarge=e.target.closest('.art-enlarge');if(enlarge){let key=enlarge.dataset.painting||enlarge.closest('.art-stage')?.dataset.art||'monet',p=paint[key];viewer.querySelector('img').src=p.src;viewer.querySelector('img').alt=p.title;viewer.querySelector('span').textContent=p.title+' · '+(key==='user'?'书房精选画作':key==='monet'?'巴贝里尼博物馆 · Public Domain':'The Met · Public Domain');viewer.querySelector('a').href=p.source;viewer.showModal()}});
 let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){if(!calm)e.target.classList.add('motion-enter');io.unobserve(e.target)}}),{threshold:.08});
