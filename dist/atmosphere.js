@@ -9,7 +9,7 @@ const artCatalog=(window.BEE_ATELIER?.artworks||[]).filter(a=>a&&a.src&&a.source
 for(const p of artCatalog)paint[p.key]={src:p.src,title:p.title,source:p.source};
 const allRandomKeys=artCatalog.length?artCatalog.map(p=>p.key):['monet','vangogh'];
 let artBag=[],activeArtKey='',artChanging=false,artHovering=false;
-const randomMode=()=>safeGet('bee_art_mode')==='random'||(safeGet('bee_art_mode')!=='fixed'&&!chosenPainting);
+const randomMode=()=>safeGet('bee_art_mode')!=='fixed';
 const autoEnabled=()=>safeGet('bee_art_auto')!=='off';
 function nextRandomKey(){
  if(!artBag.length){
