@@ -38,3 +38,28 @@ The original exercise and reference images remain third-party educational source
 - 李斯特《死之舞》约 15:30；钢琴与管弦乐队，CC BY-SA 2.0（署名及相同方式共享适用于改编）：https://commons.wikimedia.org/wiki/File:Liszt_Totentanz.ogg
 
 每个网页音频条目带有录音来源和许可信息。CC BY、CC BY-SA 项目须保留署名、授权链接和改编说明；网站没有对录音进行加工。第三方图像与音频服务器可能有跨域、访问或带宽限制。
+
+
+## 2026-11-08 · 新增「空灵悠扬」真实演奏（12 套，总计新增 3 套）
+
+新增的是三份连续播放的选曲目录，而非合成循环或新录音。每个片段保留各自原始来源、演奏者和授权声明；未修改音频内容。
+
+### 萨蒂 ·《玄秘曲》三章（合计约 10:19）
+演奏者：La Pianista；每段演奏依据 CC BY-SA 3.0 开放授权：
+- No. 1（约 3:38）：https://commons.wikimedia.org/wiki/File:Satie_-_Gnossienne_1.ogg
+- No. 3（约 2:43）：https://commons.wikimedia.org/wiki/File:Gnossienne_3_(Satie).ogg
+- No. 7（约 3:58）：https://commons.wikimedia.org/wiki/File:Gnossienne_7_(Satie).ogg
+许可：https://creativecommons.org/licenses/by-sa/3.0/
+
+### 肖邦 · 夜曲 Op. 55 两首（合计约 10:27）
+- No. 1（约 5:17），演奏：Luke Faulkner，CC0：https://commons.wikimedia.org/wiki/File:Chopin_-_Nocturne-op-55-no-1.ogg
+- No. 2（约 5:10），演奏：Xuan He，CC0：https://commons.wikimedia.org/wiki/File:Chopin_-_Nocturne-op-55-no-2.ogg
+许可：https://creativecommons.org/publicdomain/zero/1.0/
+
+### 德彪西与拉威尔 · 月光与帕凡舞曲（合计约 10:33）
+- 德彪西《月光》（约 5:04），钢琴：Laurens Goedhart，CC BY 3.0：https://commons.wikimedia.org/wiki/File:Clair_de_lune_(Claude_Debussy)_Suite_bergamasque.ogg
+  许可：https://creativecommons.org/licenses/by/3.0/
+- 拉威尔《悼念公主的帕凡舞曲》（约 5:29），手风琴乐团编配与演奏：Paul De Bra，CC BY 4.0：https://commons.wikimedia.org/wiki/File:Ravel%27s_Pavane_pour_une_infante_d%C3%A9funte,_M._19_(accordion_orchestra)_-_Paul_De_Bra.ogg
+  许可：https://creativecommons.org/licenses/by/4.0/
+
+网站只保存作品清单和链接；录音实时从 Wikimedia Commons 源站加载，无本地音频转存。选择了包含多段的曲目后，音乐馆的「分段曲目 · 演奏与授权」会展示每段可打开的录音与许可链接。署名录音均按原来源标明，不表示演奏者认可本网站。
