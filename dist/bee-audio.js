@@ -87,13 +87,28 @@ audio.addEventListener('error',()=>{error='音源加载失败，请选择其他�
 window.BEE_AUDIO={audio,getState,subscribe,play,pause,toggle,choose,skip,seek,setVolume,setLoop,refreshMini:()=>renderMini(getState())};
 const $=selector=>document.querySelector(selector);
 const mini=$('#bee-mini-player');
+const restore=$('#bee-mini-restore');
+let miniCollapsed=stored('bee_mini_collapsed','false')==='true';
+function setMiniCollapsed(value){
+ miniCollapsed=Boolean(value);
+ store('bee_mini_collapsed',miniCollapsed?'true':'false');
+ renderMini(getState());
+ if(miniCollapsed){restore?.focus()}else{$('#bee-mini-collapse')?.focus()}
+}
 const fmt=t=>{const n=Math.max(0,Math.floor(Number(t)||0)),m=Math.floor(n/60),s=String(n%60).padStart(2,'0');return m>=60?Math.floor(m/60)+':'+String(m%60).padStart(2,'0')+':'+s:m+':'+s};
 let lastId='';
 function renderMini(state){
  if(!mini)return;
  const showing=state.hasStarted&&(window.BEE_SHELL?.currentArea!=='atelier'||window.BEE_SHELL?.currentSection!=='music');
- mini.hidden=!showing;
- document.body.classList.toggle('bee-has-mini',showing);
+ const expanded=showing&&!miniCollapsed;
+ const compact=showing&&miniCollapsed;
+ mini.hidden=!expanded;
+ if(restore){
+  restore.hidden=!compact;
+  restore.setAttribute('aria-label',state.playing?'展开音乐播放栏，音乐正在播放':'展开音乐播放栏，当前已暂停');
+ }
+ document.body.classList.toggle('bee-has-mini',expanded);
+ document.body.classList.toggle('bee-mini-compact-visible',compact);
  if(!showing)return;
  const name=$('#bee-mini-title'),playBtn=$('#bee-mini-toggle'),progress=$('#bee-mini-progress');
  if(state.trackId!==lastId){name.textContent=state.track?.title||'未选择音乐';lastId=state.trackId;}
@@ -108,6 +123,8 @@ $('#bee-mini-prev').onclick=()=>skip(-1);
 $('#bee-mini-next').onclick=()=>skip(1);
 $('#bee-mini-progress').onchange=e=>seek(Number(e.target.value));
 $('#bee-mini-title').onclick=()=>window.BEE_SHELL?.navigate('atelier.html#music');
+$('#bee-mini-collapse').onclick=()=>setMiniCollapsed(true);
+$('#bee-mini-restore').onclick=()=>setMiniCollapsed(false);
 window.addEventListener('pagehide',()=>audio.pause());
 renderMini(getState());
 // Optional diagnostics for verifying actual HTMLAudioElement playback; hidden during normal use.
