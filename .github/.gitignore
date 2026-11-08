@@ -1,0 +1,3 @@
+# GitHub App cannot push workflow files without workflows permission.
+# Keep the website import working; deploy.yml can be installed manually later.
+workflows/deploy.yml
