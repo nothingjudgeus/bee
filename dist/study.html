@@ -8,24 +8,21 @@
 <title>积分图谱 · 曲线与曲面积分</title>
 <link rel="icon" href="assets/34b57a0ab2e17298f6.svg" type="image/svg+xml"/>
 <link rel="stylesheet" href="study-base.css">
-<link rel="stylesheet" href="study.css"><link rel="stylesheet" href="atmosphere.css"></head>
+<link rel="stylesheet" href="study.css"><link rel="stylesheet" href="atmosphere.css"><link rel="stylesheet" href="bee-shell.css"></head>
 <body>
 <div class="ambient" aria-hidden="true"><div class="ambient-glow a"></div><div class="ambient-glow b"></div><div class="ambient-glow c"></div></div>
-<header class="site-header" id="site-header">
-  <a href="#/home" class="brand" aria-label="积分图谱首页"><svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><ellipse cx="24" cy="29" rx="8" ry="11"/><path d="M17 25h14M16 30h16M19 36h10M20 18C5 3 4 29 17 25M28 18C43 3 44 29 31 25M21 18l-4-7m10 7 4-7"/></svg><span class="brand-name">Bee · 数学手记</span></a>
-  <nav class="primary-nav" aria-label="主导航">
+<header class="bee-unified-header" id="site-header">
+  <a class="bee-brand" href="index.html#/home" aria-label="Bee 首页"><svg width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><ellipse cx="24" cy="29" rx="8" ry="11"/><path d="M17 25h14M16 30h16M19 36h10M20 18C5 3 4 29 17 25M28 18C43 3 44 29 31 25M21 18l-4-7m10 7 4-7"/></svg><span class="bee-brand-text">Bee<span class="bee-brand-sub">雪霁书房</span></span></a>
+  <nav class="bee-site-nav" aria-label="全站主导航"><a href="index.html#/home">首页</a><a href="index.html#/journal">随笔</a><a href="study.html#/home" aria-current="page">数学书房</a><a href="atelier.html#art">画与声</a><a href="index.html#/about">关于</a></nav>
+  <button class="bee-header-search" type="button" id="search-open" aria-label="搜索">搜索 ↗</button>
+</header><div class="bee-study-subnav"><nav class="primary-nav" aria-label="数学书房栏目">
    <a data-nav="home" href="#/home">总览</a>
    <a data-nav="atlas" href="#/atlas">知识图谱</a>
    <a data-nav="problems" href="#/problems">题库</a>
    <a data-nav="practice" href="#/practice">方法训练</a>
    <a data-nav="review" href="#/review">复盘</a>
    <a href="atelier.html#art">画与声</a>
-  </nav>
-  <div class="header-actions">
-   <button class="icon-btn search-trigger" type="button" id="search-open" title="搜索（Ctrl/⌘ K）" aria-label="搜索"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"/><path d="m16 16 4.7 4.7"/></svg><span>搜索</span><kbd>⌘ K</kbd></button>
-   
-  </div>
-</header>
+  </nav></div>
 <main id="app" aria-live="polite"></main>
 <div class="desktop-required" role="status"><div class="desktop-required-icon">∫</div><strong>积分图谱</strong><p>请在平板或电脑上访问。</p></div>
 <div id="modal-root"></div>
