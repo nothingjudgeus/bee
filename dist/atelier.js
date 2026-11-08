@@ -72,7 +72,7 @@ window.addEventListener('hashchange',()=>showTab(location.hash==='#music'?'music
 const audio=new Audio();
 audio.preload='metadata';
 let partIndex=0,seekPending=null,playWanted=false,dragging=false,playError='';
-let looping=true;
+let looping=false;
 const totalSeconds=t=>Number(t.seconds||0);
 const fmt=v=>{const n=Math.max(0,Math.floor(Number(v)||0));return Math.floor(n/3600)?Math.floor(n/3600)+':'+String(Math.floor(n%3600/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0'):Math.floor(n/60)+':'+String(n%60).padStart(2,'0')};
 const parts=t=>t.parts?.length?t.parts:[{src:t.src,seconds:t.seconds,title:t.title}];
@@ -151,7 +151,7 @@ $('#music-grid').addEventListener('click',e=>{const b=e.target.closest('[data-mu
 $('#dock-toggle').onclick=()=>audio.paused?startPlayback():pausePlayback();
 $('#dock-prev').onclick=()=>moveTrack(-1);
 $('#dock-next').onclick=()=>moveTrack(1);
-$('#dock-volume').value=read('bee_volume','18');
+$('#dock-volume').value=read('bee_volume','28');
 audio.volume=Math.max(0,Math.min(1,Number($('#dock-volume').value)/100));
 $('#dock-volume').oninput=e=>{write('bee_volume',e.target.value);audio.volume=Math.max(0,Math.min(1,Number(e.target.value)/100))};
 $('#dock-progress').addEventListener('input',e=>{dragging=true;$('#dock-elapsed').textContent=fmt(e.target.value)});
