@@ -91,10 +91,11 @@ document.addEventListener('click',e=>{
  const auto=e.target.closest('[data-art-auto]');
  if(auto){
    const stage=auto.closest('.art-stage');
+   const wasRunning=randomMode()&&autoEnabled();
    safeSet('bee_art_mode','random');
-   safeSet('bee_art_auto',autoEnabled()?'off':'on');
+   safeSet('bee_art_auto',wasRunning?'off':'on');
    setRandomControlState(stage);
-   if(autoEnabled()&&!activeArtKey){const k=nextRandomKey();if(k)changeFeaturedArt(stage,k)}
+   if(!wasRunning){const k=nextRandomKey();if(k)changeFeaturedArt(stage,k)}
  }
  let enlarge=e.target.closest('.art-enlarge');if(enlarge){let key=enlarge.dataset.painting||enlarge.closest('.art-stage')?.dataset.art||'monet',p=paint[key];viewer.querySelector('img').src=p.src;viewer.querySelector('img').alt=p.title;viewer.querySelector('span').textContent=p.title+' · '+(key==='user'?'书房精选画作':key==='monet'?'巴贝里尼博物馆 · Public Domain':'The Met · Public Domain');viewer.querySelector('a').href=p.source;viewer.showModal()}});
 let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){if(!calm)e.target.classList.add('motion-enter');io.unobserve(e.target)}}),{threshold:.08});
@@ -105,8 +106,8 @@ if(stage&&!stage.dataset.galleryRandomBound){
   if(paint.user&&!randomMode())changeFeaturedArt(stage,'user');
   else {const k=nextRandomKey();if(k)changeFeaturedArt(stage,k)}
   setRandomControlState(stage);
-  stage.addEventListener('pointerenter',()=>{artHovering=true});
-  stage.addEventListener('pointerleave',()=>{artHovering=false});
+  stage.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')artHovering=true});
+  stage.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')artHovering=false});
 }
 if(stage&&!stage.dataset.tiltBound){stage.dataset.tiltBound='1';stage.addEventListener('pointermove',e=>{if(calm||e.pointerType!=='mouse')return;let r=stage.getBoundingClientRect();stage.style.setProperty('--ry',((e.clientX-r.left)/r.width-.5)*3+'deg');stage.style.setProperty('--rx',-((e.clientY-r.top)/r.height-.5)*3+'deg')});stage.addEventListener('pointerleave',()=>{stage.style.setProperty('--rx','0deg');stage.style.setProperty('--ry','0deg')})}}
 // Shuffle without immediately repeating a painting; only swap after its image loads.
