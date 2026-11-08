@@ -16,10 +16,14 @@ vm.runInNewContext(fs.readFileSync(path.join(root,'dist/atelier-data.js'),'utf8'
 const collection=atelierBox.window.BEE_ATELIER;
 if(!collection||!Array.isArray(collection.artworks)||!Array.isArray(collection.tracks))failures.push('画与声收藏馆缺少目录');
 else{
-  if(collection.artworks.length!==38||collection.tracks.length!==12)failures.push('画集或音乐集数量异常');
+  if(collection.artworks.length!==38||collection.tracks.length!==9)failures.push('画集或音乐集数量异常');
   for(const key of ['artworks','tracks'])if(new Set(collection[key].map(x=>x.id)).size!==collection[key].length)failures.push('画与声目录 id 重复 '+key);
   for(const art of collection.artworks){if(!art.src||!art.title||!art.source)failures.push('画作资料不完整 '+art.id);if(art.src?.startsWith('assets/')&&!fs.existsSync(path.join(root,'dist',art.src)))failures.push('缺少画作 '+art.src)}
-  for(const music of collection.tracks)if(!Array.isArray(music.melody)||music.melody.length<4||!Array.isArray(music.chords)||music.chords.length<2)failures.push('原创乐曲数据不完整 '+music.id);
+  for(const music of collection.tracks){
+    if(!music.title||!music.composer||!music.performer||!music.source||!music.license||!music.licenseUrl||!(music.seconds>=600))failures.push('长篇录音资料不完整 '+music.id);
+    const parts=music.parts?.length?music.parts:[{src:music.src,seconds:music.seconds}];
+    if(!parts.length||parts.some(p=>!p.src?.startsWith('https://')||!(p.seconds>0)))failures.push('录音源或时长无效 '+music.id);
+  }
 }
 const posts=JSON.parse(fs.readFileSync(path.join(root,'dist/content/posts.json'),'utf8'));if(!Array.isArray(posts))failures.push('正式文章必须为数组');else for(const p of posts)if(!p.id||!p.title||typeof p.body!=='string')failures.push('文章字段错误');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
