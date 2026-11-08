@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f8f7f3">
-<meta name="description" content="Bee 私藏的油画与声音：38 幅公有领域馆藏艺术作品与九套真实的长篇纯音乐演奏。浏览、试听、收藏，并为雪霁书房挑选自己喜欢的画与音乐。">
+<meta name="description" content="Bee 私藏的油画与声音：38 幅公有领域馆藏艺术作品与十二套真实的长篇纯音乐演奏。浏览、试听、收藏，并为雪霁书房挑选自己喜欢的画与音乐。">
 <title>画与声 · Bee 雪霁书房</title>
 <link rel="stylesheet" href="atelier.css?v=20261108-galleryfix3"><link rel="stylesheet" href="bee-shell.css?v=20261108-type2">
 <script src="bee-frame.js"></script></head>
@@ -23,7 +23,7 @@
       <p class="intro-description">收集光、雪、纸页与旋律。每一幅画都可被放大细看；每一段声音，都可以成为书房的一种天气。</p>
       <div class="collection-navigation" role="tablist" aria-label="选择收藏馆">
         <button type="button" id="tab-art" role="tab" aria-selected="true" aria-controls="section-art">绘画收藏 <span>38</span></button>
-        <button type="button" id="tab-music" role="tab" aria-selected="false" aria-controls="section-music">声音收藏 <span>9</span></button>
+        <button type="button" id="tab-music" role="tab" aria-selected="false" aria-controls="section-music">声音收藏 <span>12</span></button>
       </div>
     </div>
     <div class="intro-art">
@@ -46,8 +46,8 @@
   </section>
   <section class="collection-section" id="section-music" role="tabpanel" aria-labelledby="tab-music" hidden>
     <div class="section-heading">
-      <div><p class="eyebrow">SOUND ARCHIVE</p><h2>从一支钢琴到整座乐队</h2><p class="section-desc">完整的钢琴组曲、浪漫派幻想曲、管弦乐与协奏曲；每一首都是正式的开放授权录音。</p></div>
-      <div class="section-count"><strong>9</strong><span>RECORDINGS</span></div>
+      <div><p class="eyebrow">SOUND ARCHIVE</p><h2>从空灵夜曲，到远方的弦音</h2><p class="section-desc">新增萨蒂的静谧钢琴、肖邦的柔和夜曲与德彪西的月光；也保留原有长篇协奏曲与古典演奏。</p></div>
+      <div class="section-count"><strong>12</strong><span>RECORDINGS</span></div>
     </div>
     <div class="music-studio">
       <aside class="listening-panel" aria-label="当前演奏">
@@ -57,14 +57,14 @@
             <img id="feature-art" src="assets/monet-snow.jpg" alt="正在播放作品的画作">
             <figcaption><span id="feature-number">NO. 01</span><span>AN ARTWORK FOR EVERY SOUND</span></figcaption>
           </figure>
-          <div id="player-host" class="player-host"></div>
+          <div id="player-host" class="player-host"></div><details id="recording-credits" class="recording-credits" hidden><summary>分段曲目 · 演奏与授权</summary><div id="recording-credits-list"></div></details>
           <p class="listening-footnote">原始演奏 · 公开授权 · 不会自动播放</p>
         </div>
       </aside>
       <div class="record-library">
-        <div class="record-library-head"><span>THE REPERTOIRE</span><div class="record-library-actions"><button type="button" id="music-panel-restore" class="music-panel-restore" aria-label="展开音乐播放器" hidden>♫ 展开播放器</button><span>09 RECORDINGS</span></div></div>
-        <div id="music-grid" class="music-grid" role="list" aria-label="可播放曲目"></div>
-        <p class="record-library-end">END OF COLLECTION — 09</p>
+        <div class="record-library-head"><span>THE REPERTOIRE</span><div class="record-library-actions"><button type="button" id="music-panel-restore" class="music-panel-restore" aria-label="展开音乐播放器" hidden>♫ 展开播放器</button><span>12 RECORDINGS</span></div></div>
+        <div id="music-filter" class="music-filter" role="group" aria-label="音乐风格筛选"><button type="button" data-music-style="all" aria-pressed="true">全部 · 12</button><button type="button" data-music-style="airy" aria-pressed="false">空灵悠扬 · 3</button></div><div id="music-grid" class="music-grid" role="list" aria-label="可播放曲目"></div>
+        <p class="record-library-end">END OF COLLECTION — 12</p>
       </div>
     </div>
     <p class="licensing">作品来自 Wikimedia Commons 与 Internet Archive 可公开使用的授权录音，部分遵循 CC BY / CC BY-SA 署名条款。音频通过来源服务器播放，不存储到本仓库；每一首都提供演奏来源与许可链接。浏览器需要点击后才能启动音频。</p>
