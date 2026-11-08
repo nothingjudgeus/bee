@@ -175,3 +175,38 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
  .mobile-message a{border-bottom:1px solid #9d9d99;padding-bottom:6px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+
+/* One minimization state across the listening room and site-wide music bar. */
+.listening-topline .music-panel-collapse{
+ display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ padding:7px 12px;background:transparent;border:1px solid #d2d3d4;
+ color:#65748a;border-radius:999px;white-space:nowrap;font:11px/1.5 var(--sans);
+ letter-spacing:.04em;transition:background .2s,border-color .2s
+}
+.listening-topline .music-panel-collapse:hover{
+ background:#e4e9ee;border-color:#b4c0cf;color:#34465f
+}
+.listening-topline .music-panel-collapse span{font-size:17px;line-height:.8}
+.music-studio.is-player-collapsed{
+ grid-template-columns:minmax(0,1fr);
+}
+.music-studio.is-player-collapsed .listening-panel{
+ display:none!important;
+}
+.music-studio.is-player-collapsed .record-library{
+ width:100%;max-width:1000px;margin:0 auto;
+}
+.record-library-actions{
+ display:flex;align-items:center;justify-content:flex-end;gap:18px;
+}
+.record-library-actions .music-panel-restore{
+ padding:7px 14px;border:1px solid #c3cad4;background:#e9edf3;
+ color:#445a76;border-radius:24px;white-space:nowrap;
+ font:12px/1.6 var(--serif);transition:background .2s
+}
+.record-library-actions .music-panel-restore:hover{background:#dce4ef}
+@media(max-width:860px){
+ .listening-topline .music-panel-collapse{padding:7px 9px;font-size:10px}
+ .record-library-actions{gap:10px}
+}
