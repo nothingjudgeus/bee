@@ -24,7 +24,15 @@
     <span id="bee-mini-total">0:00</span>
   </div>
   <span class="bee-mini-caption">BEE · NOW PLAYING</span>
+  <button id="bee-mini-collapse" class="bee-mini-collapse" type="button" aria-label="收起播放栏，音乐继续播放" title="收起播放栏（不断音）">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+  </button>
 </div>
+<button id="bee-mini-restore" class="bee-mini-restore" type="button" aria-label="展开音乐播放栏" title="展开播放栏" hidden>
+  <span class="bee-restore-symbol" aria-hidden="true">♫</span>
+  <span class="bee-restore-copy">展开播放栏</span>
+  <span class="bee-restore-status" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
 <script src="atelier-data.js"></script>
 <script src="bee-audio.js"></script>
 <script src="bee-session.js"></script>
