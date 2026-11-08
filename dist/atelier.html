@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f8f7f3">
 <meta name="description" content="Bee 私藏的油画与声音：38 幅公有领域馆藏艺术作品与九套真实的长篇纯音乐演奏。浏览、试听、收藏，并为雪霁书房挑选自己喜欢的画与音乐。">
 <title>画与声 · Bee 雪霁书房</title>
-<link rel="stylesheet" href="atelier.css?v=20261108c2"><link rel="stylesheet" href="bee-shell.css?v=20261108-type2">
+<link rel="stylesheet" href="atelier.css?v=20261108-galleryfix3"><link rel="stylesheet" href="bee-shell.css?v=20261108-type2">
 <script src="bee-frame.js"></script></head>
 <body>
 <div class="page-shell">
@@ -75,7 +75,11 @@
 <div class="mobile-message"><strong>Bee · 画与声</strong><p>请使用平板或电脑浏览本馆。</p><a href="index.html#/home">返回书房</a></div>
 <dialog id="art-viewer" aria-label="画作详情">
   <div class="viewer-top"><span id="viewer-index">ARTWORK</span><button id="viewer-close" type="button" aria-label="关闭画作">关闭 ×</button></div>
-  <div class="viewer-body"><button class="viewer-arrow" id="viewer-prev" type="button" aria-label="上一幅">‹</button><img id="viewer-image" alt=""><button class="viewer-arrow" id="viewer-next" type="button" aria-label="下一幅">›</button></div>
+  <div class="viewer-body">
+    <button class="viewer-arrow" id="viewer-prev" type="button" aria-label="上一幅画作">‹</button>
+    <div class="viewer-image-stage"><img id="viewer-image" alt=""></div>
+    <button class="viewer-arrow" id="viewer-next" type="button" aria-label="下一幅画作">›</button>
+  </div>
   <div class="viewer-bottom"><div class="viewer-info"><p class="viewer-kicker">FROM THE COLLECTION</p><p id="viewer-artist"></p><h3 id="viewer-title"></h3><span id="viewer-year"></span></div><div class="viewer-actions"><a id="viewer-source" target="_blank" rel="noopener noreferrer">查看馆藏原件 ↗</a><button id="viewer-choose" type="button">设为书房封面</button></div></div>
 </dialog>
 <div class="music-dock" id="music-dock" aria-label="音乐播放器" hidden>
