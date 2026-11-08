@@ -1,0 +1,57 @@
+name: Import Bee website archive
+
+on:
+  push:
+    paths:
+      - 'Bee-Website-Complete-2026-11-07.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract complete website
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="Bee-Website-Complete-2026-11-07.zip"
+          test -f "$archive" || { echo "Missing $archive"; exit 1; }
+          mkdir -p "$RUNNER_TEMP/bee-site"
+          unzip -q "$archive" -d "$RUNNER_TEMP/bee-site"
+          root="$RUNNER_TEMP/bee-site/bee-study"
+          test -f "$root/dist/index.html"
+          test -f "$root/dist/atlas-data.js"
+          test -f "$root/scripts/validate.mjs"
+          cp -a "$root/." .
+          rm -f "$archive"
+
+      - name: Validate website
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run validation
+        run: node scripts/validate.mjs
+
+      - name: Commit all site files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if test -f .taste-skill/direction.json; then
+            git add -f .taste-skill/direction.json
+          fi
+          if git diff --cached --quiet; then
+            echo "Site already imported"
+          else
+            git commit -m "Import complete Bee website from 2026-11-07 archive"
+            git push
+          fi
