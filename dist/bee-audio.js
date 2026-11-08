@@ -84,7 +84,7 @@ audio.addEventListener('ended',()=>{
  skip(1);
 });
 audio.addEventListener('error',()=>{error='音源加载失败，请选择其他曲目';autoplayPending=false;emit('error')});
-window.BEE_AUDIO={audio,getState,subscribe,play,pause,toggle,choose,skip,seek,setVolume,setLoop};
+window.BEE_AUDIO={audio,getState,subscribe,play,pause,toggle,choose,skip,seek,setVolume,setLoop,refreshMini:()=>renderMini(getState())};
 const $=selector=>document.querySelector(selector);
 const mini=$('#bee-mini-player');
 const fmt=t=>{const n=Math.max(0,Math.floor(Number(t)||0)),m=Math.floor(n/60),s=String(n%60).padStart(2,'0');return m>=60?Math.floor(m/60)+':'+String(m%60).padStart(2,'0')+':'+s:m+':'+s};
