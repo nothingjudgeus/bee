@@ -20,7 +20,12 @@ function renderFilters(){
 function renderArt(){
   visibleArt=artworks.filter(a=>(activeArtist==='全部'||a.artist===activeArtist)&&(!query||(a.title+' '+a.artist+' '+a.year).toLowerCase().includes(query)));
   artCount.textContent=visibleArt.length;
-  artGrid.innerHTML=visibleArt.length?visibleArt.map((a,i)=>'<article class="art-tile"><button class="art-frame" type="button" data-view="'+i+'" aria-label="放大 '+esc(a.title)+'"><img src="'+esc(a.src)+'" alt="'+esc(a.artist)+'《'+esc(a.title)+'》" loading="lazy" referrerpolicy="no-referrer"></button><h3 class="art-title">'+esc(a.title)+'</h3><div class="art-meta"><span>'+esc(a.artist)+'</span><span>'+esc(a.year)+'</span></div><button class="art-choose'+(a.id===chosenArt?' selected':'')+'" type="button" data-set="'+esc(a.id)+'">'+(a.id===chosenArt?'当前书房封面':'设为书房封面')+'</button></article>').join(''):'<p class="empty-state">没有找到符合条件的画作，试试其他关键词。</p>';
+  artGrid.innerHTML=visibleArt.length?visibleArt.map((a,i)=>
+    '<article class="art-tile"><button class="art-frame" type="button" data-view="'+i+'" aria-label="放大 '+esc(a.title)+'"><img src="'+esc(a.src)+'" alt="'+esc(a.artist)+'《'+esc(a.title)+'》" loading="lazy" decoding="async" referrerpolicy="no-referrer"></button>'+
+    '<div class="art-details"><div class="art-meta"><span>'+esc(a.artist)+'</span><span>'+esc(a.year)+'</span></div>'+
+    '<h3 class="art-title">'+esc(a.title)+'</h3>'+
+    '<button class="art-choose'+(a.id===chosenArt?' selected':'')+'" type="button" data-set="'+esc(a.id)+'">'+(a.id===chosenArt?'已选为首页封面':'设为首页封面 ↗')+'</button></div></article>'
+  ).join(''):'<p class="empty-state">没有找到符合条件的画作，试试其他关键词。</p>';
   updateBanner();
 }
 function updateBanner(){
@@ -79,8 +84,15 @@ const parts=t=>t.parts?.length?t.parts:[{src:t.src,seconds:t.seconds,title:t.tit
 const beforePart=(i)=>parts(chosenTrack).slice(0,i).reduce((s,p)=>s+Number(p.seconds||0),0);
 const elapsed=()=>beforePart(partIndex)+(Number.isFinite(audio.currentTime)?audio.currentTime:0);
 function musicCard(t,i){
-  const active=t.id===chosenTrack.id, playing=active&&!audio.paused&&!audio.ended;
-  return '<article class="music-card'+(active?' is-current':'')+'"><img src="'+esc(t.art)+'" alt="" loading="lazy"><div class="music-text"><span class="music-num">NO. '+String(i+1).padStart(2,'0')+' · '+fmt(t.seconds)+'</span><h3>'+esc(t.title)+'</h3><p>'+esc(t.composer)+' · '+esc(t.performer)+'</p><a class="music-license" href="'+esc(t.source)+'" target="_blank" rel="noopener noreferrer">演奏来源 ↗</a> <a class="music-license" href="'+esc(t.licenseUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(t.license)+' ↗</a></div><button class="music-play" type="button" data-music="'+esc(t.id)+'" aria-label="'+(playing?'暂停 ':'播放 ')+esc(t.title)+'">'+(playing?'Ⅱ':'▶')+'</button></article>';
+  const active=t.id===chosenTrack.id,play=active&&!audio.paused&&!audio.ended;
+  return '<article role="listitem" class="music-card'+(active?' is-current':'')+'">'+
+    '<span class="music-num">'+String(i+1).padStart(2,'0')+'</span>'+
+    '<div class="music-text"><h3>'+esc(t.title)+'</h3><p>'+esc(t.composer)+' · '+esc(t.performer)+'</p>'+
+    '<div class="music-detail-line"><span>'+esc(t.genre)+'</span>'+
+    '<a class="music-license" href="'+esc(t.source)+'" target="_blank" rel="noopener noreferrer">演奏来源 ↗</a>'+
+    '<a class="music-license" href="'+esc(t.licenseUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(t.license)+'</a></div></div>'+
+    '<div class="music-action"><span class="music-duration">'+fmt(t.seconds)+'</span>'+
+    '<button class="music-play" type="button" data-music="'+esc(t.id)+'" aria-label="'+(play?'暂停 ':'播放 ')+esc(t.title)+'">'+(play?'Ⅱ':'▶')+'</button></div></article>';
 }
 function renderMusic(){
   $('#music-grid').innerHTML=tracks.map(musicCard).join('');
@@ -88,6 +100,9 @@ function renderMusic(){
   $('#dock-title').textContent=chosenTrack.title;
   $('#dock-desc').textContent=playError||chosenTrack.performer;
   $('#dock-art').src=chosenTrack.art;
+  $('#feature-art').src=chosenTrack.art;
+  $('#feature-art').alt='选中曲目的画作封面：'+chosenTrack.title;
+  $('#feature-number').textContent='NO. '+String(tracks.findIndex(t=>t.id===chosenTrack.id)+1).padStart(2,'0');
   $('#dock-toggle').textContent=!audio.paused?'Ⅱ':'▶';
   $('#dock-toggle').setAttribute('aria-label',audio.paused?'播放':'暂停');
   $('#dock-source').href=chosenTrack.source;
@@ -165,6 +180,8 @@ $('#dock-progress').addEventListener('change',e=>{
 $('#dock-loop').onclick=()=>{looping=!looping;$('#dock-loop').setAttribute('aria-pressed',String(looping));$('#dock-loop').title=looping?'当前作品循环':'播放下一首';};
 window.addEventListener('pagehide',()=>{audio.pause();audio.removeAttribute('src');audio.load()});
 if(read('bee_sound','off')==='on')write('bee_sound','off');
+$('#player-host').appendChild($('#music-dock'));
+$('#search-open').onclick=()=>{showTab('art');window.scrollTo({top:Math.max(0,$('#section-art').getBoundingClientRect().top+scrollY-22),behavior:'smooth'});setTimeout(()=>$('#art-search').focus(),120)};
 renderFilters();renderArt();renderMusic();
 showTab(location.hash==='#music'?'music':'art',false);
 })();
