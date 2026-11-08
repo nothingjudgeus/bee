@@ -80,7 +80,7 @@ const beforePart=(i)=>parts(chosenTrack).slice(0,i).reduce((s,p)=>s+Number(p.sec
 const elapsed=()=>beforePart(partIndex)+(Number.isFinite(audio.currentTime)?audio.currentTime:0);
 function musicCard(t,i){
   const active=t.id===chosenTrack.id, playing=active&&!audio.paused&&!audio.ended;
-  return '<article class="music-card'+(active?' is-current':'')+'"><img src="'+esc(t.art)+'" alt="" loading="lazy"><div class="music-text"><span class="music-num">NO. '+String(i+1).padStart(2,'0')+' · '+fmt(t.seconds)+'</span><h3>'+esc(t.title)+'</h3><p>'+esc(t.composer)+' · '+esc(t.performer)+'</p><a class="music-license" href="'+esc(t.source)+'" target="_blank" rel="noopener noreferrer">原始演奏 · '+esc(t.license)+' ↗</a></div><button class="music-play" type="button" data-music="'+esc(t.id)+'" aria-label="'+(playing?'暂停 ':'播放 ')+esc(t.title)+'">'+(playing?'Ⅱ':'▶')+'</button></article>';
+  return '<article class="music-card'+(active?' is-current':'')+'"><img src="'+esc(t.art)+'" alt="" loading="lazy"><div class="music-text"><span class="music-num">NO. '+String(i+1).padStart(2,'0')+' · '+fmt(t.seconds)+'</span><h3>'+esc(t.title)+'</h3><p>'+esc(t.composer)+' · '+esc(t.performer)+'</p><a class="music-license" href="'+esc(t.source)+'" target="_blank" rel="noopener noreferrer">演奏来源 ↗</a> <a class="music-license" href="'+esc(t.licenseUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(t.license)+' ↗</a></div><button class="music-play" type="button" data-music="'+esc(t.id)+'" aria-label="'+(playing?'暂停 ':'播放 ')+esc(t.title)+'">'+(playing?'Ⅱ':'▶')+'</button></article>';
 }
 function renderMusic(){
   $('#music-grid').innerHTML=tracks.map(musicCard).join('');
@@ -91,7 +91,7 @@ function renderMusic(){
   $('#dock-toggle').textContent=!audio.paused?'Ⅱ':'▶';
   $('#dock-toggle').setAttribute('aria-label',audio.paused?'播放':'暂停');
   $('#dock-source').href=chosenTrack.source;
-  $('#dock-license').textContent=chosenTrack.license;
+  $('#dock-license').textContent=chosenTrack.license;$('#dock-license').href=chosenTrack.licenseUrl;
   updateProgress();
 }
 function updateProgress(){
