@@ -1,5 +1,4 @@
-// Curated public-domain painting catalogue (Art Institute of Chicago / existing local open-access assets).
-// Original procedural music sketches; NOT recordings of existing songs.
+// Bee gallery: public-domain paintings and openly licensed original recordings (no proprietary streaming).
 window.BEE_ATELIER={artworks:[
   {
     "id": "monet-snow",
@@ -669,5 +668,116 @@ tracks:[
     "license": "CC BY-SA 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
     "art": "assets/vangogh-roses.jpg"
+  },
+  {
+    "id": "satie-gnossiennes",
+    "title": "玄秘曲 · 静谧钢琴三章",
+    "composer": "Erik Satie",
+    "performer": "La Pianista · 钢琴",
+    "genre": "空灵钢琴",
+    "mood": "空灵悠扬",
+    "seconds": 619,
+    "subtitle": "三首缓慢钢琴小品 · 无人声 · 10 分钟",
+    "source": "https://commons.wikimedia.org/wiki/File:Satie%20-%20Gnossienne%201.ogg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "art": "assets/monet-snow.jpg",
+    "parts": [
+      {
+        "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Satie%20-%20Gnossienne%201.ogg",
+        "title": "Gnossienne No. 1",
+        "seconds": 218,
+        "performer": "La Pianista",
+        "source": "https://commons.wikimedia.org/wiki/File:Satie%20-%20Gnossienne%201.ogg",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+      },
+      {
+        "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gnossienne%203%20(Satie).ogg",
+        "title": "Gnossienne No. 3",
+        "seconds": 163,
+        "performer": "La Pianista",
+        "source": "https://commons.wikimedia.org/wiki/File:Gnossienne%203%20(Satie).ogg",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+      },
+      {
+        "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gnossienne%207%20(Satie).ogg",
+        "title": "Gnossienne No. 7",
+        "seconds": 238,
+        "performer": "La Pianista",
+        "source": "https://commons.wikimedia.org/wiki/File:Gnossienne%207%20(Satie).ogg",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+      }
+    ]
+  },
+  {
+    "id": "chopin-nocturnes-55",
+    "title": "夜曲 Op. 55 · 两首连听",
+    "composer": "Frédéric Chopin",
+    "performer": "Luke Faulkner / Xuan He · 钢琴",
+    "genre": "柔和夜曲",
+    "mood": "空灵悠扬",
+    "seconds": 627,
+    "subtitle": "从 f 小调到降 E 大调 · 两段完整演奏",
+    "source": "https://commons.wikimedia.org/wiki/File:Chopin%20-%20Nocturne-op-55-no-1.ogg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "art": "assets/monet-river.jpg",
+    "parts": [
+      {
+        "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Chopin%20-%20Nocturne-op-55-no-1.ogg",
+        "title": "Nocturne Op. 55 No. 1 · f 小调",
+        "seconds": 317,
+        "performer": "Luke Faulkner",
+        "source": "https://commons.wikimedia.org/wiki/File:Chopin%20-%20Nocturne-op-55-no-1.ogg",
+        "license": "CC0 1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      {
+        "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Chopin%20-%20Nocturne-op-55-no-2.ogg",
+        "title": "Nocturne Op. 55 No. 2 · 降 E 大调",
+        "seconds": 310,
+        "performer": "Xuan He",
+        "source": "https://commons.wikimedia.org/wiki/File:Chopin%20-%20Nocturne-op-55-no-2.ogg",
+        "license": "CC0 1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
+    ]
+  },
+  {
+    "id": "moonlight-pavane",
+    "title": "月光与帕凡舞曲",
+    "composer": "Claude Debussy / Maurice Ravel",
+    "performer": "Laurens Goedhart / Paul De Bra",
+    "genre": "印象派 · 钢琴与手风琴",
+    "mood": "空灵悠扬",
+    "seconds": 633,
+    "subtitle": "德彪西《月光》与拉威尔《悼念公主的帕凡舞曲》",
+    "source": "https://commons.wikimedia.org/wiki/File:Clair%20de%20lune%20(Claude%20Debussy)%20Suite%20bergamasque.ogg",
+    "license": "CC BY 3.0 / 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "art": "assets/monet-cliff.jpg",
+    "parts": [
+      {
+        "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Clair%20de%20lune%20(Claude%20Debussy)%20Suite%20bergamasque.ogg",
+        "title": "Clair de lune · 月光",
+        "seconds": 304,
+        "performer": "Laurens Goedhart · 钢琴",
+        "source": "https://commons.wikimedia.org/wiki/File:Clair%20de%20lune%20(Claude%20Debussy)%20Suite%20bergamasque.ogg",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
+      },
+      {
+        "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ravel's%20Pavane%20pour%20une%20infante%20d%C3%A9funte%2C%20M.%2019%20(accordion%20orchestra)%20-%20Paul%20De%20Bra.ogg",
+        "title": "Pavane pour une infante défunte · 帕凡舞曲",
+        "seconds": 329,
+        "performer": "Paul De Bra · 手风琴合奏",
+        "source": "https://commons.wikimedia.org/wiki/File:Ravel's%20Pavane%20pour%20une%20infante%20d%C3%A9funte,%20M.%2019%20(accordion%20orchestra)%20-%20Paul%20De%20Bra.ogg",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    ]
   }
 ]};
