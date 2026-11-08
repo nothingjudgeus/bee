@@ -97,6 +97,9 @@ function updateProgress(){
 }
 function renderMusic(){
  const now=state();chosenTrack=now.track||tracks[0];
+ const minimized=Boolean(now.minimized);
+ $('.music-studio').classList.toggle('is-player-collapsed',minimized);
+ $('#music-panel-restore').hidden=!minimized;
  $('#music-grid').innerHTML=tracks.map(musicCard).join('');
  $('#music-dock').hidden=false;
  $('#dock-title').textContent=chosenTrack.title;
@@ -128,6 +131,8 @@ const unsubscribe=engine?.subscribe((type)=>{
  renderMusic();
 });
 if(unsubscribe)window.addEventListener('pagehide',unsubscribe,{once:true});
+$('#music-panel-collapse').onclick=()=>engine?.setMiniCollapsed(true);
+$('#music-panel-restore').onclick=()=>engine?.setMiniCollapsed(false);
 $('#player-host').appendChild($('#music-dock'));
 $('#search-open').onclick=()=>{showTab('art');window.scrollTo({top:Math.max(0,$('#section-art').getBoundingClientRect().top+scrollY-22),behavior:'smooth'});setTimeout(()=>$('#art-search').focus(),120)};
 renderFilters();renderArt();renderMusic();
