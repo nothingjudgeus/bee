@@ -4,13 +4,13 @@ import vm from 'node:vm';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 let failures=[];
-for(const file of ['atlas.js','site.js','atmosphere.js','atlas-data.js','atelier-data.js','atelier.js'])new vm.Script(fs.readFileSync(path.join(root,'dist',file),'utf8'),{filename:file});
+for(const file of ['atlas.js','site.js','atmosphere.js','atlas-data.js','atelier-data.js','atelier.js','bee-frame.js','bee-audio.js','bee-session.js'])new vm.Script(fs.readFileSync(path.join(root,'dist',file),'utf8'),{filename:file});
 const box={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'dist/atlas-data.js'),'utf8'),box);const d=box.window.ATLAS_DATA;
 for(const key of ['modules','nodes','exercises']){let a=d[key];if(new Set(a.map(x=>x.id)).size!==a.length)failures.push('重复 id: '+key)}
 const mods=new Set(d.modules.map(x=>x.id)),nodes=new Set(d.nodes.map(x=>x.id)),ex=new Set(d.exercises.map(x=>x.id));
 for(const n of d.nodes){if(!mods.has(n.module))failures.push('未知章节 '+n.id);for(const id of n.exerciseIds||[])if(!ex.has(id))failures.push('未知题号 '+id)}
 for(const e of d.exercises){if(!mods.has(e.module))failures.push('未知题目章节 '+e.id);for(const id of e.nodeIds||[])if(!nodes.has(id))failures.push('未知知识点 '+id);for(const f of [...(e.figureImages||[]),...(e.answerImages||[])])if(!fs.existsSync(path.join(root,'dist',f)))failures.push('缺少配图 '+f)}
-for(const filename of ['study.html','index.html','atelier.html']){const html=fs.readFileSync(path.join(root,'dist',filename),'utf8');for(const m of html.matchAll(/(?:src|href)=["']([^"'#]+)["']/g)){const url=m[1];if(/^(?:https?:|data:|mailto:|tel:)/.test(url))continue;const f=url.split(/[?#]/)[0];if(!fs.existsSync(path.join(root,'dist',f)))failures.push(filename+' 缺少 '+f)}}
+for(const filename of ['study.html','index.html','atelier.html','shell.html']){const html=fs.readFileSync(path.join(root,'dist',filename),'utf8');for(const m of html.matchAll(/(?:src|href)=["']([^"'#]+)["']/g)){const url=m[1];if(/^(?:https?:|data:|mailto:|tel:)/.test(url))continue;const f=url.split(/[?#]/)[0];if(!fs.existsSync(path.join(root,'dist',f)))failures.push(filename+' 缺少 '+f)}}
 const atelierBox={window:{}};
 vm.runInNewContext(fs.readFileSync(path.join(root,'dist/atelier-data.js'),'utf8'),atelierBox);
 const collection=atelierBox.window.BEE_ATELIER;
