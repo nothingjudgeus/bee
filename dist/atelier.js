@@ -69,117 +69,65 @@ function showTab(tab,updateUrl=true){
   $('#tab-music').setAttribute('aria-selected',String(!art));
   $('#section-art').hidden=!art;
   $('#section-music').hidden=art;
-  if(updateUrl)history.replaceState(null,'',art?'#art':'#music');
+  if(updateUrl){history.replaceState(null,'',art?'#art':'#music');try{window.parent.BEE_SHELL?.sync(location.href)}catch{}}
 }
 $('#tab-art').onclick=()=>showTab('art');
 $('#tab-music').onclick=()=>showTab('music');
 window.addEventListener('hashchange',()=>showTab(location.hash==='#music'?'music':'art',false));
-const audio=new Audio();
-audio.preload='metadata';
-let partIndex=0,seekPending=null,playWanted=false,dragging=false,playError='';
-let looping=false;
-const totalSeconds=t=>Number(t.seconds||0);
-const fmt=v=>{const n=Math.max(0,Math.floor(Number(v)||0));return Math.floor(n/3600)?Math.floor(n/3600)+':'+String(Math.floor(n%3600/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0'):Math.floor(n/60)+':'+String(n%60).padStart(2,'0')};
-const parts=t=>t.parts?.length?t.parts:[{src:t.src,seconds:t.seconds,title:t.title}];
-const beforePart=(i)=>parts(chosenTrack).slice(0,i).reduce((s,p)=>s+Number(p.seconds||0),0);
-const elapsed=()=>beforePart(partIndex)+(Number.isFinite(audio.currentTime)?audio.currentTime:0);
+let engine=null;try{engine=window.parent.BEE_AUDIO}catch{}
+const state=()=>engine?.getState()||{track:chosenTrack,trackId:chosenTrack.id,playing:false,volume:.28,elapsed:0,total:chosenTrack.seconds,looping:false};
+let dragging=false;
+const fmt=v=>{const n=Math.max(0,Math.floor(Number(v)||0)),m=Math.floor(n/60),sec=String(n%60).padStart(2,'0');return m>=60?Math.floor(m/60)+':'+String(m%60).padStart(2,'0')+':'+sec:m+':'+sec};
 function musicCard(t,i){
-  const active=t.id===chosenTrack.id,play=active&&!audio.paused&&!audio.ended;
-  return '<article role="listitem" class="music-card'+(active?' is-current':'')+'">'+
-    '<span class="music-num">'+String(i+1).padStart(2,'0')+'</span>'+
-    '<div class="music-text"><h3>'+esc(t.title)+'</h3><p>'+esc(t.composer)+' · '+esc(t.performer)+'</p>'+
-    '<div class="music-detail-line"><span>'+esc(t.genre)+'</span>'+
-    '<a class="music-license" href="'+esc(t.source)+'" target="_blank" rel="noopener noreferrer">演奏来源 ↗</a>'+
-    '<a class="music-license" href="'+esc(t.licenseUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(t.license)+'</a></div></div>'+
-    '<div class="music-action"><span class="music-duration">'+fmt(t.seconds)+'</span>'+
-    '<button class="music-play" type="button" data-music="'+esc(t.id)+'" aria-label="'+(play?'暂停 ':'播放 ')+esc(t.title)+'">'+(play?'Ⅱ':'▶')+'</button></div></article>';
-}
-function renderMusic(){
-  $('#music-grid').innerHTML=tracks.map(musicCard).join('');
-  $('#music-dock').hidden=false;
-  $('#dock-title').textContent=chosenTrack.title;
-  $('#dock-desc').textContent=playError||chosenTrack.performer;
-  $('#dock-art').src=chosenTrack.art;
-  $('#feature-art').src=chosenTrack.art;
-  $('#feature-art').alt='选中曲目的画作封面：'+chosenTrack.title;
-  $('#feature-number').textContent='NO. '+String(tracks.findIndex(t=>t.id===chosenTrack.id)+1).padStart(2,'0');
-  $('#dock-toggle').textContent=!audio.paused?'Ⅱ':'▶';
-  $('#dock-toggle').setAttribute('aria-label',audio.paused?'播放':'暂停');
-  $('#dock-source').href=chosenTrack.source;
-  $('#dock-license').textContent=chosenTrack.license;$('#dock-license').href=chosenTrack.licenseUrl;
-  updateProgress();
+ const current=state(),active=t.id===current.trackId,playing=active&&current.playing;
+ return '<article role="listitem" class="music-card'+(active?' is-current':'')+'">'+
+  '<span class="music-num">'+String(i+1).padStart(2,'0')+'</span>'+
+  '<div class="music-text"><h3>'+esc(t.title)+'</h3><p>'+esc(t.composer)+' · '+esc(t.performer)+'</p>'+
+  '<div class="music-detail-line"><span>'+esc(t.genre)+'</span>'+
+  '<a class="music-license" href="'+esc(t.source)+'" target="_blank" rel="noopener noreferrer">演奏来源 ↗</a>'+
+  '<a class="music-license" href="'+esc(t.licenseUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(t.license)+'</a></div></div>'+
+  '<div class="music-action"><span class="music-duration">'+fmt(t.seconds)+'</span>'+
+  '<button class="music-play" type="button" data-music="'+esc(t.id)+'" aria-label="'+(playing?'暂停 ':'播放 ')+esc(t.title)+'">'+(playing?'Ⅱ':'▶')+'</button></div></article>';
 }
 function updateProgress(){
-  let n=totalSeconds(chosenTrack);
-  $('#dock-total').textContent=fmt(n);
-  $('#dock-elapsed').textContent=fmt(elapsed());
-  if(!dragging){$('#dock-progress').max=n||1;$('#dock-progress').value=Math.min(n,elapsed());}
+ const now=state(),total=Number(now.total||0);
+ $('#dock-elapsed').textContent=fmt(now.elapsed);
+ $('#dock-total').textContent=fmt(total);
+ if(!dragging){const bar=$('#dock-progress');bar.max=Math.max(1,total);bar.value=Math.min(total,now.elapsed)}
 }
-function setPart(i,position=0,continuePlaying=false){
-  const list=parts(chosenTrack);
-  if(i<0||i>=list.length)return;
-  partIndex=i;
-  seekPending=Math.max(0,position);
-  playWanted=continuePlaying;
-  audio.src=list[i].src;
-  audio.load();
-  updateProgress();
+function renderMusic(){
+ const now=state();chosenTrack=now.track||tracks[0];
+ $('#music-grid').innerHTML=tracks.map(musicCard).join('');
+ $('#music-dock').hidden=false;
+ $('#dock-title').textContent=chosenTrack.title;
+ $('#dock-desc').textContent=now.error||chosenTrack.performer;
+ $('#dock-art').src=chosenTrack.art;
+ $('#feature-art').src=chosenTrack.art;
+ $('#feature-art').alt='选中曲目的画作封面：'+chosenTrack.title;
+ $('#feature-number').textContent='NO. '+String(tracks.findIndex(t=>t.id===chosenTrack.id)+1).padStart(2,'0');
+ $('#dock-toggle').textContent=now.playing?'Ⅱ':'▶';
+ $('#dock-toggle').setAttribute('aria-label',now.playing?'暂停':'播放');
+ $('#dock-source').href=chosenTrack.source;
+ $('#dock-license').textContent=chosenTrack.license;$('#dock-license').href=chosenTrack.licenseUrl;
+ $('#dock-volume').value=Math.round(now.volume*100);
+ $('#dock-loop').setAttribute('aria-pressed',String(now.looping));
+ $('#dock-loop').title=now.looping?'单曲循环开启':'播放完继续下一首';
+ updateProgress();
 }
-function setTrack(track,play=false){
-  if(!track)return;
-  audio.pause();
-  chosenTrack=track;write('bee_music_choice',track.id);playError='';
-  setPart(0,0,play);
-  if(!play)renderMusic();
-}
-async function startPlayback(){
-  playError='';
-  try{if(!audio.src)setPart(partIndex,0,false);await audio.play();write('bee_sound','on');renderMusic();}
-  catch(e){playError='音源暂不可播放，请查看原始演奏链接';write('bee_sound','off');renderMusic();}
-}
-function pausePlayback(){playWanted=false;audio.pause();write('bee_sound','off');renderMusic();}
-function chooseTrack(id){
-  const t=tracks.find(x=>x.id===id);
-  if(!t)return;
-  if(t.id===chosenTrack.id){audio.paused?startPlayback():pausePlayback();return;}
-  setTrack(t,true);renderMusic();
-}
-function moveTrack(delta){const idx=tracks.findIndex(t=>t.id===chosenTrack.id);setTrack(tracks[(idx+delta+tracks.length)%tracks.length],true);renderMusic();}
-audio.addEventListener('loadedmetadata',()=>{
-  if(seekPending!==null){const pos=Math.max(0,Math.min(seekPending,Math.max(0,(audio.duration||0)-.15)));seekPending=null;try{audio.currentTime=pos}catch{}}
-  if(playWanted){playWanted=false;startPlayback()}
-  updateProgress();
-});
-audio.addEventListener('timeupdate',updateProgress);
-audio.addEventListener('play',()=>{write('bee_sound','on');renderMusic()});
-audio.addEventListener('pause',()=>{renderMusic()});
-audio.addEventListener('ended',()=>{
-  if(partIndex+1<parts(chosenTrack).length){setPart(partIndex+1,0,true);return}
-  if(looping){setPart(0,0,true);return}
-  moveTrack(1);
-});
-audio.addEventListener('error',()=>{
-  playError='音源加载失败 · 可点击来源链接试听';
-  playWanted=false;renderMusic();
-});
-$('#music-grid').addEventListener('click',e=>{const b=e.target.closest('[data-music]');if(b)chooseTrack(b.dataset.music)});
-$('#dock-toggle').onclick=()=>audio.paused?startPlayback():pausePlayback();
-$('#dock-prev').onclick=()=>moveTrack(-1);
-$('#dock-next').onclick=()=>moveTrack(1);
-$('#dock-volume').value=read('bee_volume','28');
-audio.volume=Math.max(0,Math.min(1,Number($('#dock-volume').value)/100));
-$('#dock-volume').oninput=e=>{write('bee_volume',e.target.value);audio.volume=Math.max(0,Math.min(1,Number(e.target.value)/100))};
+$('#music-grid').addEventListener('click',e=>{const button=e.target.closest('[data-music]');if(button)engine?.choose(button.dataset.music,true)});
+$('#dock-toggle').onclick=()=>engine?.toggle();
+$('#dock-prev').onclick=()=>engine?.skip(-1);
+$('#dock-next').onclick=()=>engine?.skip(1);
+$('#dock-volume').oninput=e=>engine?.setVolume(Number(e.target.value)/100);
 $('#dock-progress').addEventListener('input',e=>{dragging=true;$('#dock-elapsed').textContent=fmt(e.target.value)});
-$('#dock-progress').addEventListener('change',e=>{
-  dragging=false;const t=Math.max(0,Number(e.target.value)||0);const list=parts(chosenTrack);
-  let remainder=t,i=0;while(i<list.length-1&&remainder>=Number(list[i].seconds)){remainder-=Number(list[i].seconds);i++;}
-  if(i===partIndex){try{audio.currentTime=remainder}catch{}}
-  else{setPart(i,remainder,!audio.paused)}
-  updateProgress();
+$('#dock-progress').addEventListener('change',e=>{dragging=false;engine?.seek(Number(e.target.value));updateProgress()});
+$('#dock-loop').onclick=()=>engine?.setLoop(!state().looping);
+const unsubscribe=engine?.subscribe((type)=>{
+ if(type==='timeupdate'){updateProgress();return}
+ if(type==='volume'&&document.activeElement===$('#dock-volume'))return;
+ renderMusic();
 });
-$('#dock-loop').onclick=()=>{looping=!looping;$('#dock-loop').setAttribute('aria-pressed',String(looping));$('#dock-loop').title=looping?'当前作品循环':'播放下一首';};
-window.addEventListener('pagehide',()=>{audio.pause();audio.removeAttribute('src');audio.load()});
-if(read('bee_sound','off')==='on')write('bee_sound','off');
+if(unsubscribe)window.addEventListener('pagehide',unsubscribe,{once:true});
 $('#player-host').appendChild($('#music-dock'));
 $('#search-open').onclick=()=>{showTab('art');window.scrollTo({top:Math.max(0,$('#section-art').getBoundingClientRect().top+scrollY-22),behavior:'smooth'});setTimeout(()=>$('#art-search').focus(),120)};
 renderFilters();renderArt();renderMusic();
