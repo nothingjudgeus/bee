@@ -53,10 +53,16 @@ function showArtwork(i){
   $('#viewer-source').href=a.source;
   $('#viewer-choose').textContent=a.id===chosenArt?'已设为书房封面 ✓':'设为书房封面';
   if(!modal.open)modal.showModal();
+  // The full-screen artwork viewer belongs to the iframe; the persistent
+  // music UI belongs to the parent shell. Hide only its controls while viewing.
+  try{window.parent.document.body.classList.add('bee-art-viewer-open')}catch{}
 }
 filterLine.addEventListener('click',e=>{const btn=e.target.closest('[data-artist]');if(!btn)return;activeArtist=btn.dataset.artist;renderFilters();renderArt()});
 artSearch.addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();renderArt()});
 artGrid.addEventListener('click',e=>{const view=e.target.closest('[data-view]'),pick=e.target.closest('[data-set]');if(view)showArtwork(Number(view.dataset.view));if(pick)chooseArt(pick.dataset.set)});
+$('#art-viewer').addEventListener('close',()=>{
+  try{window.parent.document.body.classList.remove('bee-art-viewer-open')}catch{}
+});
 $('#viewer-close').onclick=()=>$('#art-viewer').close();
 $('#viewer-prev').onclick=()=>showArtwork((viewIndex-1+visibleArt.length)%visibleArt.length);
 $('#viewer-next').onclick=()=>showArtwork((viewIndex+1)%visibleArt.length);
