@@ -223,3 +223,20 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
  .viewer-bottom{min-height:102px;max-height:155px;padding:11px 25px}
  .viewer-info h3{font-size:19px;margin:2px 0}
 }
+
+
+/* Music curation — genre filters and multi-recording credits. */
+.music-filter{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:16px 0 8px}
+.music-filter button{background:transparent;border:1px solid #d6d8d8;border-radius:999px;padding:6px 15px;color:#7a8089;font:12px/1.7 var(--serif);transition:background .2s,color .2s,border-color .2s}
+.music-filter button[aria-pressed="true"]{background:#3c4b60;color:#f8f8f7;border-color:#3c4b60}
+.music-filter button:hover:not([aria-pressed="true"]){background:#eef0f2;color:#475973}
+.music-mood{display:inline-block;font:11px/1.55 var(--serif);border:1px solid #ccd4df;border-radius:999px;padding:1px 8px;color:#677d9b;white-space:nowrap}
+.recording-credits{border-top:1px solid #d2d2d0;margin-top:18px;padding:10px 0 0;color:#727d90}
+.recording-credits summary{font:12px/1.8 var(--serif);cursor:pointer;list-style-position:inside;padding:4px 0}
+.recording-credits ol{list-style:none;margin:12px 0 0;padding:0}
+.recording-credits li{display:grid;grid-template-columns:20px minmax(0,1fr) auto auto;gap:9px;align-items:start;padding:10px 0;border-top:1px solid #d9d9d6;font:11px/1.5 var(--sans)}
+.recording-credits li .credit-num{font:11px Georgia,serif;color:#9a9b9e}
+.recording-credits li strong{display:block;font:12px/1.6 var(--serif);color:#414d5f;font-weight:400}
+.recording-credits li small{display:block;font:10px/1.5 var(--sans);color:#92969c;margin-top:2px}
+.recording-credits li a{font:10px/1.5 var(--serif);border-bottom:1px solid #c1c5cc;white-space:nowrap}
+@media(max-width:900px){.music-filter{gap:7px}.music-filter button{font-size:11px;padding:6px 11px}.recording-credits li{gap:6px}}
