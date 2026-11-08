@@ -28,7 +28,7 @@
     </div>
     <div class="intro-art">
       <img src="assets/monet-snow.jpg" alt="莫奈《阳光下的雪中麦垛》">
-      <div class="intro-art-label"><span>01 / WINTER LIGHT</span><span>Claude Monet, 1891</span></div>
+      <div class="intro-art-label"><span>PLATE I · WINTER LIGHT</span><span>CLAUDE MONET · 1891</span></div>
     </div>
   </section>
   <section class="collection-section" id="section-art" role="tabpanel" aria-labelledby="tab-art">
@@ -49,11 +49,24 @@
       <div><p class="eyebrow">SOUND ARCHIVE</p><h2>从一支钢琴到整座乐队</h2><p class="section-desc">完整的钢琴组曲、浪漫派幻想曲、管弦乐与协奏曲；每一首都是正式的开放授权录音。</p></div>
       <div class="section-count"><strong>9</strong><span>RECORDINGS</span></div>
     </div>
-    <div class="music-intro">
-      <div class="music-intro-symbol">♫</div>
-      <div><p class="eyebrow">LONG-FORM CLASSICAL RECORDINGS</p><h3>让真正的演奏，陪你读完一页书。</h3><p>九套 10～82 分钟的纯音乐录音，包括全长《哥德堡变奏曲》。支持进度跳转、连续播放和单曲循环，演奏来源与授权都可以打开查看。音频需要联网播放。</p></div>
+    <div class="music-studio">
+      <aside class="listening-panel" aria-label="当前演奏">
+        <div class="listening-paper">
+          <div class="listening-topline"><span>THE LISTENING ROOM</span><span>01 — 09</span></div>
+          <figure class="listening-cover">
+            <img id="feature-art" src="assets/monet-snow.jpg" alt="正在播放作品的画作">
+            <figcaption><span id="feature-number">NO. 01</span><span>AN ARTWORK FOR EVERY SOUND</span></figcaption>
+          </figure>
+          <div id="player-host" class="player-host"></div>
+          <p class="listening-footnote">原始演奏 · 公开授权 · 不会自动播放</p>
+        </div>
+      </aside>
+      <div class="record-library">
+        <div class="record-library-head"><span>THE REPERTOIRE</span><span>09 RECORDINGS</span></div>
+        <div id="music-grid" class="music-grid" role="list" aria-label="可播放曲目"></div>
+        <p class="record-library-end">END OF COLLECTION — 09</p>
+      </div>
     </div>
-    <div id="music-grid" class="music-grid"></div>
     <p class="licensing">作品来自 Wikimedia Commons 与 Internet Archive 可公开使用的授权录音，部分遵循 CC BY / CC BY-SA 署名条款。音频通过来源服务器播放，不存储到本仓库；每一首都提供演奏来源与许可链接。浏览器需要点击后才能启动音频。</p>
   </section>
 </main>
@@ -63,10 +76,10 @@
 <dialog id="art-viewer" aria-label="画作详情">
   <div class="viewer-top"><span id="viewer-index">ARTWORK</span><button id="viewer-close" type="button" aria-label="关闭画作">关闭 ×</button></div>
   <div class="viewer-body"><button class="viewer-arrow" id="viewer-prev" type="button" aria-label="上一幅">‹</button><img id="viewer-image" alt=""><button class="viewer-arrow" id="viewer-next" type="button" aria-label="下一幅">›</button></div>
-  <div class="viewer-bottom"><div><p id="viewer-artist"></p><h3 id="viewer-title"></h3><span id="viewer-year"></span></div><div class="viewer-actions"><a id="viewer-source" target="_blank" rel="noopener noreferrer">馆藏来源 ↗</a><button id="viewer-choose" type="button">设为书房封面</button></div></div>
+  <div class="viewer-bottom"><div class="viewer-info"><p class="viewer-kicker">FROM THE COLLECTION</p><p id="viewer-artist"></p><h3 id="viewer-title"></h3><span id="viewer-year"></span></div><div class="viewer-actions"><a id="viewer-source" target="_blank" rel="noopener noreferrer">查看馆藏原件 ↗</a><button id="viewer-choose" type="button">设为书房封面</button></div></div>
 </dialog>
 <div class="music-dock" id="music-dock" aria-label="音乐播放器" hidden>
-  <div class="dock-current"><img id="dock-art" src="assets/monet-snow.jpg" alt=""><div><small>NOW PLAYING</small><strong id="dock-title">雪后</strong><span id="dock-desc">原创氛围配乐</span></div></div>
+  <div class="dock-current"><img id="dock-art" src="assets/monet-snow.jpg" alt=""><div><small>NOW PLAYING · LONG FORM</small><strong id="dock-title">哥德堡变奏曲</strong><span id="dock-desc">钢琴独奏</span></div></div>
   <div class="dock-controls"><button type="button" id="dock-prev" aria-label="上一首">‹</button><button type="button" id="dock-toggle" aria-label="播放或暂停">▶</button><button type="button" id="dock-next" aria-label="下一首">›</button><button type="button" id="dock-loop" aria-label="切换单曲循环" aria-pressed="false" title="播放下一首">↻</button></div>
   <div class="dock-seek"><span id="dock-elapsed">0:00</span><input type="range" id="dock-progress" min="0" max="1" value="0" step="1" aria-label="播放进度"><span id="dock-total">0:00</span></div><div class="dock-tools"><a id="dock-source" target="_blank" rel="noopener noreferrer">录音来源 ↗</a><a id="dock-license" target="_blank" rel="noopener noreferrer" aria-label="查看录音授权许可">CC0</a><label class="dock-volume">音量<input type="range" id="dock-volume" min="0" max="100" value="28" aria-label="音乐音量"></label></div>
 </div>
