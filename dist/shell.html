@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f9f7f2">
+<meta name="description" content="Bee 雪霁书房。阅读、数学、绘画与音乐，自由切换而不中断演奏。">
+<title>Bee · 雪霁书房</title>
+<link rel="stylesheet" href="bee-session.css">
+</head>
+<body>
+<iframe id="bee-page" title="Bee 雪霁书房内容" src="about:blank" allow="autoplay"></iframe>
+<div class="bee-mini" id="bee-mini-player" aria-label="持续播放中的音乐" hidden>
+  <span class="bee-mini-indicator" aria-hidden="true">♫</span>
+  <button type="button" id="bee-mini-title" class="bee-mini-title" title="进入音乐收藏馆">当前演奏</button>
+  <div class="bee-mini-controls">
+    <button id="bee-mini-prev" type="button" aria-label="上一首">‹</button>
+    <button id="bee-mini-toggle" type="button" aria-label="播放或暂停">▶</button>
+    <button id="bee-mini-next" type="button" aria-label="下一首">›</button>
+  </div>
+  <div class="bee-mini-progress">
+    <span id="bee-mini-current">0:00</span>
+    <input id="bee-mini-progress" type="range" value="0" min="0" max="1" step="1" aria-label="切换播放位置">
+    <span id="bee-mini-total">0:00</span>
+  </div>
+  <span class="bee-mini-caption">BEE · NOW PLAYING</span>
+</div>
+<script src="atelier-data.js"></script>
+<script src="bee-audio.js"></script>
+<script src="bee-session.js"></script>
+</body>
+</html>
