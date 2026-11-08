@@ -38,6 +38,7 @@ function chooseArt(id){
   const a=artworks.find(x=>x.id===id);if(!a)return;
   chosenArt=id;
   write('bee_art_choice',JSON.stringify({id:a.id,src:a.src,title:a.artist+' · '+a.title,artist:a.artist,source:a.source,year:a.year}));
+  write('bee_art_mode','fixed');
   renderArt();
   if($('#art-viewer').open)$('#viewer-choose').textContent='已设为书房封面 ✓';
 }
