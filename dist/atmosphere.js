@@ -11,6 +11,9 @@ controls.innerHTML='<button id="sound-toggle" aria-pressed="false"><span class="
 document.body.append(controls);
 const toggle=document.getElementById('sound-toggle'),label=document.getElementById('sound-label'),volume=document.getElementById('sound-volume');
 let engine=null;try{engine=window.parent.BEE_AUDIO}catch{}
+// The shared parent player already provides music controls, including collapse / restore.
+// Hide the legacy child audio toolbar to avoid two overlapping playback bars.
+if(engine){controls.hidden=true;controls.style.display='none';}
 function ui(){
  const state=engine?.getState();
  const playing=Boolean(state?.playing);
