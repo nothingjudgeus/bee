@@ -87,13 +87,14 @@ window.addEventListener('hashchange',()=>showTab(location.hash==='#music'?'music
 let engine=null;try{engine=window.parent.BEE_AUDIO}catch{}
 const state=()=>engine?.getState()||{track:chosenTrack,trackId:chosenTrack.id,playing:false,volume:.28,elapsed:0,total:chosenTrack.seconds,looping:false};
 let dragging=false;
+let musicStyle='all';
 const fmt=v=>{const n=Math.max(0,Math.floor(Number(v)||0)),m=Math.floor(n/60),sec=String(n%60).padStart(2,'0');return m>=60?Math.floor(m/60)+':'+String(m%60).padStart(2,'0')+':'+sec:m+':'+sec};
 function musicCard(t,i){
  const current=state(),active=t.id===current.trackId,playing=active&&current.playing;
  return '<article role="listitem" class="music-card'+(active?' is-current':'')+'">'+
   '<span class="music-num">'+String(i+1).padStart(2,'0')+'</span>'+
   '<div class="music-text"><h3>'+esc(t.title)+'</h3><p>'+esc(t.composer)+' · '+esc(t.performer)+'</p>'+
-  '<div class="music-detail-line"><span>'+esc(t.genre)+'</span>'+
+  '<div class="music-detail-line"><span>'+esc(t.genre)+'</span>'+(t.mood?'<span class="music-mood">'+esc(t.mood)+'</span>':'')+
   '<a class="music-license" href="'+esc(t.source)+'" target="_blank" rel="noopener noreferrer">演奏来源 ↗</a>'+
   '<a class="music-license" href="'+esc(t.licenseUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(t.license)+'</a></div></div>'+
   '<div class="music-action"><span class="music-duration">'+fmt(t.seconds)+'</span>'+
@@ -110,7 +111,7 @@ function renderMusic(){
  const minimized=Boolean(now.minimized);
  $('.music-studio').classList.toggle('is-player-collapsed',minimized);
  $('#music-panel-restore').hidden=!minimized;
- $('#music-grid').innerHTML=tracks.map(musicCard).join('');
+ $('#music-grid').innerHTML=tracks.filter(t=>musicStyle==='all'||t.mood==='空灵悠扬').map(musicCard).join('');
  $('#music-dock').hidden=false;
  $('#dock-title').textContent=chosenTrack.title;
  $('#dock-desc').textContent=now.error||chosenTrack.performer;
@@ -120,13 +121,30 @@ function renderMusic(){
  $('#feature-number').textContent='NO. '+String(tracks.findIndex(t=>t.id===chosenTrack.id)+1).padStart(2,'0');
  $('#dock-toggle').textContent=now.playing?'Ⅱ':'▶';
  $('#dock-toggle').setAttribute('aria-label',now.playing?'暂停':'播放');
- $('#dock-source').href=chosenTrack.source;
- $('#dock-license').textContent=chosenTrack.license;$('#dock-license').href=chosenTrack.licenseUrl;
+ const part=chosenTrack.parts?.[now.partIndex]||chosenTrack;
+ $('#dock-source').href=part.source||chosenTrack.source;
+ $('#dock-license').textContent=part.license||chosenTrack.license;
+ $('#dock-license').href=part.licenseUrl||chosenTrack.licenseUrl;
+ const credits=$('#recording-credits');
+ const segments=chosenTrack.parts||[];
+ credits.hidden=segments.length<2;
+ if(segments.length>1){
+   const markup=segments.map((p,i)=>'<li><span class="credit-num">'+String(i+1).padStart(2,'0')+'</span><div><strong>'+esc(p.title)+'</strong><small>'+esc(p.performer||chosenTrack.performer)+'</small></div><a href="'+esc(p.source||chosenTrack.source)+'" target="_blank" rel="noopener noreferrer">录音 ↗</a><a href="'+esc(p.licenseUrl||chosenTrack.licenseUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(p.license||chosenTrack.license)+'</a></li>').join('');
+   const list=$('#recording-credits-list');
+   if(list.dataset.track!==chosenTrack.id){list.dataset.track=chosenTrack.id;list.innerHTML='<ol>'+markup+'</ol>';}
+ }
  $('#dock-volume').value=Math.round(now.volume*100);
  $('#dock-loop').setAttribute('aria-pressed',String(now.looping));
  $('#dock-loop').title=now.looping?'单曲循环开启':'播放完继续下一首';
  updateProgress();
 }
+$('#music-filter').addEventListener('click',e=>{
+ const button=e.target.closest('[data-music-style]');
+ if(!button)return;
+ musicStyle=button.dataset.musicStyle;
+ $('#music-filter').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+ renderMusic();
+});
 $('#music-grid').addEventListener('click',e=>{const button=e.target.closest('[data-music]');if(button)engine?.choose(button.dataset.music,true)});
 $('#dock-toggle').onclick=()=>engine?.toggle();
 $('#dock-prev').onclick=()=>engine?.skip(-1);
