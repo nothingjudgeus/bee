@@ -63,6 +63,9 @@ artGrid.addEventListener('click',e=>{const view=e.target.closest('[data-view]'),
 $('#art-viewer').addEventListener('close',()=>{
   try{window.parent.document.body.classList.remove('bee-art-viewer-open')}catch{}
 });
+window.addEventListener('pagehide',()=>{
+  try{window.parent.document.body.classList.remove('bee-art-viewer-open')}catch{}
+});
 $('#viewer-close').onclick=()=>$('#art-viewer').close();
 $('#viewer-prev').onclick=()=>showArtwork((viewIndex-1+visibleArt.length)%visibleArt.length);
 $('#viewer-next').onclick=()=>showArtwork((viewIndex+1)%visibleArt.length);
