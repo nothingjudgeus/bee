@@ -44,3 +44,8 @@ html,body{margin:0;padding:0;height:100%;background:#f9f7f2;color:#383631;font-f
  .bee-mini-restore,.bee-mini-collapse{transition:none}
  .bee-restore-status i{animation:none;height:7px}
 }
+
+/* Painting lightbox is inside the page iframe. Parent music controls must not float over museum captions. */
+body.bee-art-viewer-open #bee-page{height:100dvh!important}
+body.bee-art-viewer-open .bee-mini,
+body.bee-art-viewer-open .bee-mini-restore{visibility:hidden!important;pointer-events:none!important}
