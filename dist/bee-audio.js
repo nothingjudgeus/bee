@@ -14,7 +14,7 @@ const offset=index=>pieces().slice(0,index).reduce((n,p)=>n+Number(p.seconds||0)
 const elapsed=()=>offset(partIndex)+(Number.isFinite(audio.currentTime)?audio.currentTime:0);
 const getState=()=>({
  track,trackId:track?.id||'',playing:!audio.paused&&!audio.ended&&!error,
- paused:audio.paused,elapsed,total:Number(track?.seconds||0),volume:audio.volume,
+ paused:audio.paused,elapsed:elapsed(),total:Number(track?.seconds||0),volume:audio.volume,
  partIndex,looping,error,hasStarted
 });
 const emit=type=>{const state=getState();for(const fn of [...listeners]){try{fn(type,state)}catch(e){console.warn('Bee player listener:',e)}};renderMini(state)};
