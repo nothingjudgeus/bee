@@ -110,4 +110,18 @@ $('#bee-mini-progress').onchange=e=>seek(Number(e.target.value));
 $('#bee-mini-title').onclick=()=>window.BEE_SHELL?.navigate('atelier.html#music');
 window.addEventListener('pagehide',()=>audio.pause());
 renderMini(getState());
+// Optional diagnostics for verifying actual HTMLAudioElement playback; hidden during normal use.
+if(new URLSearchParams(location.search).has('diag')){
+ const panel=document.createElement('pre');panel.id='bee-audio-diagnostics';
+ Object.assign(panel.style,{position:'fixed',top:'6px',right:'6px',zIndex:'9999',background:'#101923e9',color:'#e9f0ff',font:'11px/1.4 monospace',padding:'12px',width:'380px',maxHeight:'360px',overflow:'auto',whiteSpace:'pre-wrap',pointerEvents:'none'});
+ document.body.append(panel);
+ const recent=[];
+ for(const event of ['loadstart','loadedmetadata','loadeddata','canplay','playing','play','pause','waiting','stalled','suspend','timeupdate','error','emptied','seeked']){
+  audio.addEventListener(event,()=>{if(event!=='timeupdate'){recent.push(event);if(recent.length>12)recent.shift()}});
+ }
+ setInterval(()=>{
+  const st=getState();
+  panel.textContent=JSON.stringify({track:st.trackId,elapsed:st.elapsed,playing:st.playing,paused:audio.paused,readyState:audio.readyState,networkState:audio.networkState,audioError:audio.error?.code??null,audioErrorMessage:audio.error?.message??null,partIndex,src:audio.currentSrc.slice(0,160),shellRoute:location.hash,visibility:document.visibilityState,events:recent},null,2);
+ },450);
+}
 })();
