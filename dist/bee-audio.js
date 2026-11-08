@@ -7,6 +7,7 @@ const audio=new Audio();audio.preload='metadata';
 let track=lookup(stored('bee_music_choice',''));
 let partIndex=0,seekPending=null,autoplayPending=false,looping=stored('bee_music_loop','false')==='true';
 let error='',hasStarted=false;
+let miniCollapsed=stored('bee_mini_collapsed','false')==='true';
 const listeners=new Set();
 let notifyTimer=0;
 const pieces=()=>track?.parts?.length?track.parts:[{src:track?.src,seconds:track?.seconds,title:track?.title}];
@@ -15,7 +16,7 @@ const elapsed=()=>offset(partIndex)+(Number.isFinite(audio.currentTime)?audio.cu
 const getState=()=>({
  track,trackId:track?.id||'',playing:!audio.paused&&!audio.ended&&!error,
  paused:audio.paused,elapsed:elapsed(),total:Number(track?.seconds||0),volume:audio.volume,
- partIndex,looping,error,hasStarted
+ partIndex,looping,error,hasStarted,minimized:miniCollapsed
 });
 const emit=type=>{const state=getState();for(const fn of [...listeners]){try{fn(type,state)}catch(e){console.warn('Bee player listener:',e)}};renderMini(state)};
 function subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn)}
@@ -84,24 +85,24 @@ audio.addEventListener('ended',()=>{
  skip(1);
 });
 audio.addEventListener('error',()=>{error='音源加载失败，请选择其他曲目';autoplayPending=false;emit('error')});
-window.BEE_AUDIO={audio,getState,subscribe,play,pause,toggle,choose,skip,seek,setVolume,setLoop,refreshMini:()=>renderMini(getState())};
+window.BEE_AUDIO={audio,getState,subscribe,play,pause,toggle,choose,skip,seek,setVolume,setLoop,setMiniCollapsed,refreshMini:()=>renderMini(getState())};
 const $=selector=>document.querySelector(selector);
 const mini=$('#bee-mini-player');
 const restore=$('#bee-mini-restore');
-let miniCollapsed=stored('bee_mini_collapsed','false')==='true';
 function setMiniCollapsed(value){
  miniCollapsed=Boolean(value);
  store('bee_mini_collapsed',miniCollapsed?'true':'false');
- renderMini(getState());
+ emit('layout');
  if(miniCollapsed){restore?.focus()}else{$('#bee-mini-collapse')?.focus()}
 }
 const fmt=t=>{const n=Math.max(0,Math.floor(Number(t)||0)),m=Math.floor(n/60),s=String(n%60).padStart(2,'0');return m>=60?Math.floor(m/60)+':'+String(m%60).padStart(2,'0')+':'+s:m+':'+s};
 let lastId='';
 function renderMini(state){
  if(!mini)return;
- const showing=state.hasStarted&&(window.BEE_SHELL?.currentArea!=='atelier'||window.BEE_SHELL?.currentSection!=='music');
+ const onMusic=window.BEE_SHELL?.currentArea==='atelier'&&window.BEE_SHELL?.currentSection==='music';
+ const showing=state.hasStarted&&!onMusic;
  const expanded=showing&&!miniCollapsed;
- const compact=showing&&miniCollapsed;
+ const compact=miniCollapsed&&(state.hasStarted||onMusic);
  mini.hidden=!expanded;
  if(restore){
   restore.hidden=!compact;
