@@ -1,0 +1,77 @@
+
+/* Bee unified site frame: the overview, mathematics, art and music share one visual grammar. */
+.bee-unified-header{
+  position:relative!important;top:auto!important;z-index:80!important;
+  width:min(1440px,100%);max-width:1440px!important;min-height:112px!important;
+  height:auto!important;margin:0 auto!important;padding:24px 5%!important;
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  gap:clamp(18px,2.3vw,40px)!important;border:0!important;background:transparent!important;
+  box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  color:#383631!important;
+}
+.bee-unified-header .bee-brand{
+  display:flex!important;align-items:center!important;flex-shrink:0!important;
+  gap:10px!important;font:400 27px/1.15 "Noto Serif CJK SC","Source Han Serif SC","Songti SC","SimSun",serif!important;
+  padding:0!important;color:#383631!important;white-space:nowrap;text-decoration:none!important;
+}
+.bee-unified-header .bee-brand svg{
+  width:38px!important;height:38px!important;display:block!important;flex:none!important;
+  fill:none!important;stroke:currentColor!important;stroke-width:1.4!important
+}
+.bee-unified-header .bee-brand .bee-brand-text{display:block;line-height:1.1}
+.bee-unified-header .bee-brand .bee-brand-sub{
+  display:block!important;font:12px/1.8 system-ui,-apple-system,"PingFang SC",sans-serif!important;
+  color:#75736e!important;letter-spacing:.05em
+}
+.bee-unified-header .bee-site-nav{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:clamp(17px,2.65vw,36px)!important;flex-wrap:nowrap!important;
+  min-height:45px!important;margin:0!important;padding:0!important;border:0!important;
+  background:transparent!important;box-shadow:none!important
+}
+.bee-unified-header .bee-site-nav a{
+  position:relative!important;display:block!important;white-space:nowrap!important;
+  padding:8px 0!important;margin:0!important;border:0!important;border-radius:0!important;
+  color:#383631!important;text-decoration:none!important;
+  font:400 15px/1.7 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif!important;
+  background:transparent!important;box-shadow:none!important;transition:color .22s!important
+}
+.bee-unified-header .bee-site-nav a:hover{color:#747f97!important}
+.bee-unified-header .bee-site-nav a[aria-current="page"]{
+  color:#64625d!important;text-decoration:underline!important;text-underline-offset:9px!important;
+  text-decoration-thickness:1px!important
+}
+.bee-unified-header .bee-header-search,.bee-unified-header .bee-header-action{
+  font:400 14px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif!important;
+  color:#383631!important;padding:10px 0!important;white-space:nowrap!important;
+  border:0!important;border-radius:0!important;background:none!important;
+  box-shadow:none!important;min-width:64px!important;text-align:right!important;cursor:pointer
+}
+.bee-unified-header .bee-header-search:hover,.bee-unified-header .bee-header-action:hover{
+  color:#747f97!important;transform:none!important
+}
+.bee-unified-header .bee-header-action:focus-visible,.bee-unified-header a:focus-visible,
+.bee-unified-header .bee-header-search:focus-visible{outline:2px solid #7689a5!important;outline-offset:5px}
+.bee-unified-footer{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:28px;
+  width:100%;padding:46px max(5%,calc((100% - 1296px)/2));
+  background:#e8e6e1;color:#383631;
+}
+.bee-unified-footer .bee-footer-sign{font:400 54px/1 "Songti SC","Noto Serif CJK SC",serif}
+.bee-unified-footer p{margin:12px 0 0;font:14px/1.8 system-ui,sans-serif}
+.bee-unified-footer .bee-footer-links{display:flex;gap:22px;align-items:center;flex-wrap:wrap;font:14px/1.5 system-ui,sans-serif}
+.bee-unified-footer a:hover{color:#667b99}
+@media(max-width:1080px){
+ .bee-unified-header{gap:15px!important;padding:21px 4%!important;min-height:96px!important}
+ .bee-unified-header .bee-brand{font-size:24px!important}
+ .bee-unified-header .bee-site-nav{gap:clamp(12px,1.8vw,21px)!important}
+ .bee-unified-header .bee-site-nav a{font-size:13px!important}
+ .bee-unified-header .bee-header-search,.bee-unified-header .bee-header-action{font-size:12px!important;min-width:45px!important}
+}
+@media(max-width:780px){
+ .bee-unified-header{padding:18px 4%!important;flex-wrap:wrap!important;gap:10px 20px!important}
+ .bee-unified-header .bee-site-nav{order:3!important;width:100%!important;justify-content:space-between!important;gap:8px!important}
+ .bee-unified-header .bee-site-nav a{font-size:12px!important}
+ .bee-unified-footer{padding:35px 4%;flex-direction:column;align-items:flex-start}
+}
