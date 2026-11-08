@@ -18,7 +18,7 @@
 
 ## 画与声收藏馆
 
-公开入口 `dist/atelier.html`（导航“画与声”）：38 幅可筛选、放大和选为书房封面的绘画，12 首可试听、选择并循环的原创合成氛围乐曲。馆藏数据和音乐编配在 `dist/atelier-data.js`，交互在 `dist/atelier.js`，排版在 `dist/atelier.css`。访客偏好保存在浏览器的 `bee_art_choice` 和 `bee_music_choice`，书房主页面和数学书房会读取配乐选择；首页会应用所选封面。芝加哥艺术博物馆 Open Access 画作使用其官方 IIIF 远程图片源，需联网访问；本地五幅现有馆藏画作离线可用。详见 `docs/画与声收藏馆.md`。
+公开入口 `dist/atelier.html`（导航“画与声”）：38 幅可筛选、放大和选为书房封面的绘画，9 套 10～82 分钟的开放授权长篇纯音乐真实录音。馆藏数据和音乐目录在 `dist/atelier-data.js`，交互在 `dist/atelier.js`，排版在 `dist/atelier.css`。访客偏好保存在浏览器的 `bee_art_choice` 和 `bee_music_choice`，书房主页面和数学书房会读取所选录音；首页会应用所选封面。芝加哥艺术博物馆 Open Access 画作使用其官方 IIIF 远程图片源，需联网访问；本地五幅现有馆藏画作离线可用。详见 `docs/画与声收藏馆.md`。
 
 ## 修改内容
 
