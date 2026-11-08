@@ -384,639 +384,290 @@ window.BEE_ATELIER={artworks:[
 ],
 tracks:[
   {
-    "id": "snow",
-    "title": "雪后",
-    "subtitle": "霜雪 · 钟琴",
-    "timbre": "glass",
-    "step": 2.8,
-    "chords": [
-      [
-        50,
-        57,
-        61,
-        66,
-        69
-      ],
-      [
-        47,
-        54,
-        57,
-        62,
-        66
-      ],
-      [
-        43,
-        50,
-        54,
-        57,
-        62
-      ],
-      [
-        45,
-        52,
-        57,
-        59,
-        64
-      ]
-    ],
-    "melody": [
-      74,
-      78,
-      81,
-      78,
-      73,
-      69,
-      66,
-      69,
-      74,
-      78,
-      81,
-      86,
-      83,
-      81,
-      78,
-      73
-    ],
-    "art": "https://www.artic.edu/iiif/2/0f1cc0e0-e42e-be16-3f71-2022da38cb93/full/843,/0/default.jpg"
+    "id": "goldberg",
+    "title": "哥德堡变奏曲 · 全集",
+    "composer": "J. S. Bach",
+    "performer": "Kimiko Ishizaka · 钢琴",
+    "genre": "钢琴独奏",
+    "seconds": 4932,
+    "subtitle": "从咏叹调到三十段变奏 · 完整演奏",
+    "source": "https://archive.org/details/The_Open_Goldberg_Variations-11823",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "art": "assets/monet-snow.jpg",
+    "parts": [
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_01_-_Aria.mp3",
+        "seconds": 300,
+        "title": "Aria"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_02_-_Variatio_1_a_1_Clav.mp3",
+        "seconds": 116,
+        "title": "Variatio 1 a 1 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_03_-_Variatio_2_a_1_Clav.mp3",
+        "seconds": 124,
+        "title": "Variatio 2 a 1 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_04_-_Variatio_3_a_1_Clav_Canone_allUnisuono.mp3",
+        "seconds": 117,
+        "title": "Variatio 3 a 1 Clav. Canone all'Unisuono"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_05_-_Variatio_4_a_1_Clav.mp3",
+        "seconds": 69,
+        "title": "Variatio 4 a 1 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_06_-_Variatio_5_a_1_ovvero_2_Clav.mp3",
+        "seconds": 94,
+        "title": "Variatio 5 a 1 ovvero 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_07_-_Variatio_6_a_1_Clav_Canone_alla_Seconda.mp3",
+        "seconds": 98,
+        "title": "Variatio 6 a 1 Clav. Canone alla Seconda"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_08_-_Variatio_7_a_1_ovvero_2_Clav.mp3",
+        "seconds": 132,
+        "title": "Variatio 7 a 1 ovvero 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_09_-_Variatio_8_a_2_Clav.mp3",
+        "seconds": 117,
+        "title": "Variatio 8 a 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_10_-_Variatio_9_a_1_Clav_Canone_alla_Terza.mp3",
+        "seconds": 126,
+        "title": "Variatio 9 a 1 Clav. Canone alla Terza"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_11_-_Variatio_10_a_1_Clav_Fughetta.mp3",
+        "seconds": 106,
+        "title": "Variatio 10 a 1 Clav. Fughetta"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_12_-_Variatio_11_a_2_Clav.mp3",
+        "seconds": 129,
+        "title": "Variatio 11 a 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_13_-_Variatio_12_Canone_alla_Quarta.mp3",
+        "seconds": 136,
+        "title": "Variatio 12 Canone alla Quarta"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_14_-_Variatio_13_a_2_Clav.mp3",
+        "seconds": 254,
+        "title": "Variatio 13 a 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_15_-_Variatio_14_a_2_Clav.mp3",
+        "seconds": 137,
+        "title": "Variatio 14 a 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_16_-_Variatio_15_a_1_Clav_Canone_alla_Quinta.mp3",
+        "seconds": 273,
+        "title": "Variatio 15 a 1 Clav. Canone alla Quinta"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_17_-_Variatio_16_a_1_Clav_Ouverture.mp3",
+        "seconds": 189,
+        "title": "Variatio 16 a 1 Clav. Ouverture"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_18_-_Variatio_17_a_2_Clav.mp3",
+        "seconds": 104,
+        "title": "Variatio 17 a 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_19_-_Variatio_18_a_1_Clav_Canone_alla_Sexta.mp3",
+        "seconds": 109,
+        "title": "Variatio 18 a 1 Clav. Canone alla Sexta"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_20_-_Variatio_19_a_1_Clav.mp3",
+        "seconds": 85,
+        "title": "Variatio 19 a 1 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_21_-_Variatio_20_a_2_Clav.mp3",
+        "seconds": 125,
+        "title": "Variatio 20 a 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_22_-_Variatio_21_Canone_alla_Settima.mp3",
+        "seconds": 235,
+        "title": "Variatio 21 Canone alla Settima"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_23_-_Variatio_22_a_1_Clav.mp3",
+        "seconds": 93,
+        "title": "Variatio 22 a 1 Clav"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_24_-_Variatio_23_a_2_Clav.mp3",
+        "seconds": 140,
+        "title": "Variatio 23 a 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_25_-_Variatio_24_a_1_Clav_Canone_allOttava.mp3",
+        "seconds": 166,
+        "title": "Variatio 24 a 1 Clav. Canone all'Ottava"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_26_-_Variatio_25_a_2_Clav.mp3",
+        "seconds": 558,
+        "title": "Variatio 25 a 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_27_-_Variatio_26_a_2_Clav.mp3",
+        "seconds": 123,
+        "title": "Variatio 26 a 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_28_-_Variatio_27_a_2_Clav_Canone_alla_Nona.mp3",
+        "seconds": 111,
+        "title": "Variatio 27 a 2 Clav. Canone alla Nona"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_29_-_Variatio_28_a_2_Clav.mp3",
+        "seconds": 146,
+        "title": "Variatio 28 a 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_30_-_Variatio_29_a_1_ovvero_2_Clav.mp3",
+        "seconds": 129,
+        "title": "Variatio 29 a 1 ovvero 2 Clav."
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_31_-_Variatio_30_a_1_Clav_Quodlibet.mp3",
+        "seconds": 121,
+        "title": "Variatio 30 a 1 Clav. Quodlibet"
+      },
+      {
+        "src": "https://archive.org/download/The_Open_Goldberg_Variations-11823/Kimiko_Ishizaka_-_32_-_Aria_da_Capo__Fine.mp3",
+        "seconds": 170,
+        "title": "Aria da Capo è Fine"
+      }
+    ]
   },
   {
-    "id": "mist",
-    "title": "远山微雾",
-    "subtitle": "晨光 · 弦乐",
-    "timbre": "air",
-    "step": 3.3,
-    "chords": [
-      [
-        52,
-        59,
-        64,
-        67
-      ],
-      [
-        48,
-        55,
-        60,
-        64
-      ],
-      [
-        45,
-        52,
-        57,
-        60
-      ],
-      [
-        47,
-        54,
-        59,
-        62
-      ]
-    ],
-    "melody": [
-      71,
-      76,
-      79,
-      76,
-      72,
-      67,
-      64,
-      67,
-      71,
-      74,
-      76,
-      81,
-      79,
-      76,
-      71,
-      67
-    ],
-    "art": "https://www.artic.edu/iiif/2/8534685d-1102-e1e3-e194-94f6e925e8b0/full/843,/0/default.jpg"
+    "id": "english-suite",
+    "title": "第三英国组曲 BWV 808",
+    "composer": "J. S. Bach",
+    "performer": "Radek Materka · 钢琴",
+    "genre": "钢琴独奏",
+    "seconds": 1145,
+    "subtitle": "Radek Materka · 钢琴",
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/J.%20S.%20Bach%20-%20English%20Suite%20no.%203%2C%20BWV%20808.ogg",
+    "source": "https://commons.wikimedia.org/wiki/File:J.%20S.%20Bach%20-%20English%20Suite%20no.%203,%20BWV%20808.ogg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "art": "assets/monet-river.jpg"
   },
   {
-    "id": "blue",
-    "title": "蓝色时辰",
-    "subtitle": "暮色 · 柔琴",
-    "timbre": "felt",
-    "step": 2.5,
-    "chords": [
-      [
-        45,
-        52,
-        57,
-        60
-      ],
-      [
-        41,
-        48,
-        53,
-        57
-      ],
-      [
-        43,
-        50,
-        55,
-        59
-      ],
-      [
-        40,
-        47,
-        52,
-        55
-      ]
-    ],
-    "melody": [
-      72,
-      69,
-      64,
-      69,
-      72,
-      76,
-      72,
-      69,
-      67,
-      64,
-      60,
-      64,
-      67,
-      72,
-      69,
-      64
-    ],
-    "art": "https://www.artic.edu/iiif/2/66f95ea3-a11a-1cf4-6599-d0a49bb25744/full/843,/0/default.jpg"
+    "id": "chopin-fantasy",
+    "title": "f 小调幻想曲 Op. 49",
+    "composer": "Frédéric Chopin",
+    "performer": "Luke Faulkner · 钢琴",
+    "genre": "浪漫派钢琴",
+    "seconds": 739,
+    "subtitle": "Luke Faulkner · 钢琴",
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Chopin-fantasy-op.49-in-f-minor.ogg",
+    "source": "https://commons.wikimedia.org/wiki/File:Chopin-fantasy-op.49-in-f-minor.ogg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "art": "assets/vangogh-roses.jpg"
   },
   {
-    "id": "river",
-    "title": "塞纳河畔",
-    "subtitle": "微光 · 波纹",
-    "timbre": "glass",
-    "step": 2.2,
-    "chords": [
-      [
-        48,
-        55,
-        60,
-        64
-      ],
-      [
-        50,
-        57,
-        62,
-        65
-      ],
-      [
-        45,
-        52,
-        57,
-        60
-      ],
-      [
-        43,
-        50,
-        55,
-        59
-      ]
-    ],
-    "melody": [
-      76,
-      79,
-      81,
-      79,
-      76,
-      72,
-      67,
-      72,
-      74,
-      77,
-      79,
-      74,
-      72,
-      67,
-      64,
-      67
-    ],
-    "art": "https://www.artic.edu/iiif/2/325efa52-e2cf-8ddb-3b42-93c6ebaf5cbf/full/843,/0/default.jpg"
+    "id": "chopin-ballade",
+    "title": "g 小调第一叙事曲 Op. 23",
+    "composer": "Frédéric Chopin",
+    "performer": "Frank Lévy · 钢琴",
+    "genre": "浪漫派钢琴",
+    "seconds": 614,
+    "subtitle": "Frank Lévy · 钢琴",
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Chopin%20Ballade%20no.%201%20in%20G%20minor%2C%20Op.%2023%20Frank%20L%C3%A9vy.mp3",
+    "source": "https://commons.wikimedia.org/wiki/File:Chopin%20Ballade%20no.%201%20in%20G%20minor,%20Op.%2023%20Frank%20L%C3%A9vy.mp3",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "art": "assets/vangogh-orchard.webp"
   },
   {
-    "id": "orchard",
-    "title": "花园午后",
-    "subtitle": "春日 · 木琴",
-    "timbre": "plucked",
-    "step": 2.1,
-    "chords": [
-      [
-        57,
-        64,
-        69,
-        73
-      ],
-      [
-        54,
-        61,
-        66,
-        69
-      ],
-      [
-        50,
-        57,
-        62,
-        66
-      ],
-      [
-        52,
-        59,
-        64,
-        68
-      ]
-    ],
-    "melody": [
-      76,
-      78,
-      81,
-      85,
-      81,
-      78,
-      76,
-      73,
-      74,
-      78,
-      81,
-      78,
-      73,
-      69,
-      73,
-      76
-    ],
-    "art": "https://www.artic.edu/iiif/2/bfc9b17a-cc18-7bd3-4d78-e925bb1a8b27/full/843,/0/default.jpg"
+    "id": "chopin-scherzo",
+    "title": "E 大调第四谐谑曲 Op. 54",
+    "composer": "Frédéric Chopin",
+    "performer": "Alice Gi-Young Hwang · 钢琴",
+    "genre": "浪漫派钢琴",
+    "seconds": 649,
+    "subtitle": "Alice Gi-Young Hwang · 钢琴",
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Chopin%20Scherzo%20no.%204%20in%20E%20major%2C%20Op.%2054%2C%20Alice%20Gi-Young%20Hwang.ogg",
+    "source": "https://commons.wikimedia.org/wiki/File:Chopin%20Scherzo%20no.%204%20in%20E%20major,%20Op.%2054,%20Alice%20Gi-Young%20Hwang.ogg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "art": "assets/monet-cliff.jpg"
   },
   {
-    "id": "moon",
-    "title": "月下素描",
-    "subtitle": "夜航 · 玻璃琴",
-    "timbre": "air",
-    "step": 3.1,
-    "chords": [
-      [
-        48,
-        55,
-        60,
-        64,
-        67
-      ],
-      [
-        45,
-        52,
-        57,
-        60,
-        64
-      ],
-      [
-        41,
-        48,
-        53,
-        57,
-        60
-      ],
-      [
-        43,
-        50,
-        55,
-        59,
-        62
-      ]
-    ],
-    "melody": [
-      72,
-      76,
-      79,
-      84,
-      79,
-      76,
-      72,
-      67,
-      72,
-      74,
-      76,
-      79,
-      74,
-      72,
-      67,
-      64
-    ],
-    "art": "https://www.artic.edu/iiif/2/d943c45f-0d95-6c79-113b-e7268f0bd85e/full/843,/0/default.jpg"
+    "id": "chopin-concerto",
+    "title": "e 小调第一钢琴协奏曲 · 第一乐章",
+    "composer": "Frédéric Chopin",
+    "performer": "钢琴与弦乐四重奏版本",
+    "genre": "协奏曲",
+    "seconds": 1175,
+    "subtitle": "钢琴与弦乐四重奏版本",
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Chopin%20-%20Piano%20Concerto%20no.%201%2C%20Op.%2011%20(string%20quartet)-1.ogg",
+    "source": "https://commons.wikimedia.org/wiki/File:Chopin%20-%20Piano%20Concerto%20no.%201,%20Op.%2011%20(string%20quartet)-1.ogg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "art": "assets/monet-river.jpg"
   },
   {
-    "id": "linen",
-    "title": "亚麻与纸",
-    "subtitle": "午后 · 钢琴",
-    "timbre": "felt",
-    "step": 2.4,
-    "chords": [
-      [
-        53,
-        60,
-        65,
-        69
-      ],
-      [
-        50,
-        57,
-        62,
-        65
-      ],
-      [
-        46,
-        53,
-        58,
-        62
-      ],
-      [
-        48,
-        55,
-        60,
-        64
-      ]
-    ],
-    "melody": [
-      77,
-      72,
-      69,
-      72,
-      77,
-      81,
-      77,
-      72,
-      74,
-      69,
-      65,
-      69,
-      72,
-      77,
-      74,
-      69
-    ],
-    "art": "https://www.artic.edu/iiif/2/4eb368b5-3b66-ae2c-bd4a-2643015e05fc/full/843,/0/default.jpg"
+    "id": "schumann-concerto",
+    "title": "a 小调钢琴协奏曲 · 第二、三乐章",
+    "composer": "Robert Schumann",
+    "performer": "钢琴与管弦乐队",
+    "genre": "协奏曲",
+    "seconds": 887,
+    "subtitle": "钢琴与管弦乐队",
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Schumann%20-%20Piano%20Concerto%20in%20A%20minor%20Op.54%20-%20II.%20Intermezzo%20and%20III.%20Allegro%20vivace.ogg",
+    "source": "https://commons.wikimedia.org/wiki/File:Schumann%20-%20Piano%20Concerto%20in%20A%20minor%20Op.54%20-%20II.%20Intermezzo%20and%20III.%20Allegro%20vivace.ogg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "art": "assets/vangogh-orchard.webp"
   },
   {
-    "id": "snowline",
-    "title": "雪线",
-    "subtitle": "深冬 · 低弦",
-    "timbre": "air",
-    "step": 3.6,
-    "chords": [
-      [
-        43,
-        50,
-        55,
-        58
-      ],
-      [
-        39,
-        46,
-        51,
-        55
-      ],
-      [
-        46,
-        53,
-        58,
-        62
-      ],
-      [
-        41,
-        48,
-        53,
-        57
-      ]
-    ],
-    "melody": [
-      67,
-      70,
-      74,
-      70,
-      67,
-      62,
-      58,
-      62,
-      65,
-      70,
-      74,
-      77,
-      74,
-      70,
-      67,
-      62
-    ],
-    "art": "https://www.artic.edu/iiif/2/053f9be8-3617-c4ef-36cd-1deb5e13b288/full/843,/0/default.jpg"
+    "id": "tchaikovsky-concerto",
+    "title": "降 b 小调第一钢琴协奏曲 · 第一乐章",
+    "composer": "Pyotr Ilyich Tchaikovsky",
+    "performer": "钢琴与管弦乐队",
+    "genre": "协奏曲",
+    "seconds": 1127,
+    "subtitle": "钢琴与管弦乐队",
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tchaikovsky%2C%20Concerto%20No.1%20in%20B-flat%20minor%20Op.23%2C%20I.%20Allegro.ogg",
+    "source": "https://commons.wikimedia.org/wiki/File:Tchaikovsky,%20Concerto%20No.1%20in%20B-flat%20minor%20Op.23,%20I.%20Allegro.ogg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "art": "assets/monet-cliff.jpg"
   },
   {
-    "id": "dawn",
-    "title": "第一束光",
-    "subtitle": "清晨 · 风铃",
-    "timbre": "glass",
-    "step": 2.15,
-    "chords": [
-      [
-        52,
-        59,
-        64,
-        68
-      ],
-      [
-        57,
-        64,
-        69,
-        73
-      ],
-      [
-        54,
-        61,
-        66,
-        71
-      ],
-      [
-        59,
-        66,
-        71,
-        74
-      ]
-    ],
-    "melody": [
-      80,
-      83,
-      85,
-      83,
-      80,
-      76,
-      73,
-      76,
-      78,
-      81,
-      85,
-      88,
-      85,
-      81,
-      78,
-      73
-    ],
-    "art": "https://www.artic.edu/iiif/2/3b885ae0-4d46-5fe4-d70a-00474827f02c/full/843,/0/default.jpg"
-  },
-  {
-    "id": "rain",
-    "title": "雨停以后",
-    "subtitle": "雨滴 · 柔和",
-    "timbre": "plucked",
-    "step": 2.55,
-    "chords": [
-      [
-        45,
-        52,
-        57,
-        60,
-        64
-      ],
-      [
-        48,
-        55,
-        60,
-        64,
-        67
-      ],
-      [
-        50,
-        57,
-        62,
-        65,
-        69
-      ],
-      [
-        43,
-        50,
-        55,
-        59,
-        62
-      ]
-    ],
-    "melody": [
-      69,
-      72,
-      76,
-      72,
-      69,
-      64,
-      60,
-      64,
-      67,
-      72,
-      74,
-      79,
-      76,
-      72,
-      69,
-      64
-    ],
-    "art": "https://www.artic.edu/iiif/2/ddd3cb67-98d9-417b-96c2-ea7a7ccfd2cf/full/843,/0/default.jpg"
-  },
-  {
-    "id": "porcelain",
-    "title": "瓷与晨雾",
-    "subtitle": "留白 · 音阶",
-    "timbre": "glass",
-    "step": 3,
-    "chords": [
-      [
-        55,
-        62,
-        67,
-        71
-      ],
-      [
-        50,
-        57,
-        62,
-        66
-      ],
-      [
-        52,
-        59,
-        64,
-        67
-      ],
-      [
-        48,
-        55,
-        60,
-        64
-      ]
-    ],
-    "melody": [
-      79,
-      83,
-      86,
-      83,
-      79,
-      74,
-      71,
-      74,
-      76,
-      79,
-      83,
-      88,
-      86,
-      83,
-      79,
-      74
-    ],
-    "art": "https://www.artic.edu/iiif/2/1fb50815-11e5-2191-a4ed-8e0e5801cc15/full/843,/0/default.jpg"
-  },
-  {
-    "id": "silent",
-    "title": "海边的信",
-    "subtitle": "海潮 · 弦音",
-    "timbre": "air",
-    "step": 2.95,
-    "chords": [
-      [
-        50,
-        57,
-        62,
-        65
-      ],
-      [
-        46,
-        53,
-        58,
-        62
-      ],
-      [
-        43,
-        50,
-        55,
-        58
-      ],
-      [
-        45,
-        52,
-        57,
-        60
-      ]
-    ],
-    "melody": [
-      74,
-      77,
-      81,
-      77,
-      74,
-      69,
-      65,
-      69,
-      72,
-      74,
-      77,
-      81,
-      77,
-      74,
-      72,
-      69
-    ],
-    "art": "https://www.artic.edu/iiif/2/0f1cc0e0-e42e-be16-3f71-2022da38cb93/full/843,/0/default.jpg"
+    "id": "liszt-totentanz",
+    "title": "死之舞 S.126",
+    "composer": "Franz Liszt",
+    "performer": "钢琴与管弦乐队",
+    "genre": "交响音乐",
+    "seconds": 930,
+    "subtitle": "钢琴与管弦乐队",
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Liszt%20Totentanz.ogg",
+    "source": "https://commons.wikimedia.org/wiki/File:Liszt%20Totentanz.ogg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "art": "assets/vangogh-roses.jpg"
   }
 ]};
